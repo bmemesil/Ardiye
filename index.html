@@ -280,44 +280,145 @@ function printDoc(p){
   var ard=0;for(var i=0;i<bs.length;i++)ard+=bs[i].s;ard*=ad;
   var gu=SG[p]?240*ad:0,yu=SY[p]?160*ad:0;
   var ara=ard+gu+yu,kdv=Math.round(ara*kv/100),tot=ara+kdv;
-  var pn=PN[p];
+  var bn=G("bn"+p).value,fi=G("fi"+p).value,vn=G("vn"+p).value;
+  var pn=["AÇIK ARDİYE","3 TON ÜZERİ","KAPALI ARDİYE"][p];
+  var baslik=["ARDİYE ÜCRETİ HESAPLAMA TABLOSU","ARDİYE ÜCRETİ HESAPLAMA TABLOSU","KAPALI ALAN ARDİYE ÜCRETİ HESAPLAMA TABLOSU"][p];
+
+  function FD(v){if(!v)return "";var pp=v.split("-");return pp[2]+"."+pp[1]+"."+pp[0];}
+  function N(n){return n.toLocaleString("tr-TR");}
+
+  var td="border:1px solid #000;padding:6px 10px;";
+  var tdc="border:1px solid #000;padding:6px 10px;text-align:center;";
+  var tdr="border:1px solid #000;padding:6px 10px;text-align:right;";
+  var hd="background:#1F3864;color:white;border:1px solid #000;padding:6px 10px;text-align:center;font-weight:bold;";
+
   var rows="";
   for(var i=0;i<bs.length;i++){
-    var b=bs[i],bg=b.on?"#fff0ee":"#fff",fc=b.on?"#8B0000":"#777",fw=b.on?"bold":"normal";
-    rows+="<tr style='background:"+bg+"'><td>"+b.l+"</td><td style='text-align:right'>"+b.d.toLocaleString("tr-TR")+" ₺</td><td style='text-align:center;color:"+fc+";font-weight:"+fw+"'>"+(b.on?b.u:"-")+"</td><td style='text-align:right;color:"+fc+";font-weight:"+fw+"'>"+(b.on?(b.s*ad).toLocaleString("tr-TR")+" ₺":"-")+"</td></tr>";
+    var b=bs[i];
+    var bg=b.on?"":"";
+    rows+="<tr>"
+      +"<td style='"+td+"font-size:14px;font-weight:bold'>"+["1-20 Gün","21-50 Gün","51-80 Gün","81 gün ve sonrası"][i]+"</td>"
+      +"<td style='"+tdc+"font-size:14px;font-weight:bold'>"+N(b.d)+"</td>"
+      +"<td style='"+tdc+"font-size:14px;font-weight:bold'>"+(b.on?b.u:0)+"</td>"
+      +"<td style='"+tdc+"'></td>"
+      +"<td style='"+tdc+"'></td>"
+      +"<td style='"+tdr+"font-size:14px;font-weight:bold'>"+(b.on?N(b.s*ad):0)+"</td>"
+      +"</tr>";
   }
-  var oz="";
-  oz+="<div style='display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid #eee'><span style='color:#666'>Ardiye Ücreti</span><span style='font-weight:600'>"+ard.toLocaleString("tr-TR")+" ₺</span></div>";
-  if(gu>0)oz+="<div style='display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid #eee'><span style='color:#666'>Araç Giriş/Çıkış</span><span style='font-weight:600'>"+gu.toLocaleString("tr-TR")+" ₺</span></div>";
-  if(yu>0)oz+="<div style='display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid #eee'><span style='color:#666'>Yükleme/Boşaltma</span><span style='font-weight:600'>"+yu.toLocaleString("tr-TR")+" ₺</span></div>";
-  oz+="<div style='display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid #eee'><span style='color:#666'>Ara Toplam</span><span style='font-weight:600'>"+ara.toLocaleString("tr-TR")+" ₺</span></div>";
-  if(kv>0)oz+="<div style='display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid #eee'><span style='color:#666'>KDV (%"+kv+")</span><span style='font-weight:600'>"+kdv.toLocaleString("tr-TR")+" ₺</span></div>";
-  var inf="";
-  var IS="background:#f9f0f0;padding:8px 10px;border-radius:5px;border-left:3px solid #8B0000;";
-  var bn=G("bn"+p).value,fi=G("fi"+p).value,vn=G("vn"+p).value;
-  if(bn)inf+="<div style='"+IS+"grid-column:1/-1'><div style='font-size:10px;color:#888;margin-bottom:2px'>BEYANNAME/NO</div><div style='font-weight:bold'>"+bn+"</div></div>";
-  if(fi)inf+="<div style='"+IS+"grid-column:1/-1'><div style='font-size:10px;color:#888;margin-bottom:2px'>FİRMA</div><div style='font-weight:bold'>"+fi+"</div></div>";
-  if(vn)inf+="<div style='"+IS+"'><div style='font-size:10px;color:#888;margin-bottom:2px'>TC/VERGİ NO</div><div style='font-weight:bold'>"+vn+"</div></div>";
-  return "<div style='display:flex;align-items:center;gap:12px;padding-bottom:12px;margin-bottom:14px;border-bottom:2px solid #8B0000'>"
-    +"<img src='"+LG+"' style='width:54px;height:54px;object-fit:contain' alt=''>"
-    +"<div><div style='font-size:14px;font-weight:800;color:#8B0000'>T.C. TİCARET BAKANLIĞI</div>"
-    +"<div style='font-size:12px;font-weight:700;color:#333;margin-top:2px'>ARDİYE ÜCRETİ HESAPLAMA TABLOSU</div>"
-    +"<div style='font-size:11px;color:#888'>"+pn+"</div></div></div>"
-    +"<div style='display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-bottom:13px'>"
-    +"<div style='"+IS+"'><div style='font-size:10px;color:#888;margin-bottom:2px'>GİRİŞ</div><div style='font-size:14px;font-weight:800;color:#8B0000'>"+(FD(gi)||"—")+"</div></div>"
-    +"<div style='"+IS+"'><div style='font-size:10px;color:#888;margin-bottom:2px'>ÇIKIŞ</div><div style='font-size:14px;font-weight:800;color:#8B0000'>"+(FD(ci)||"—")+"</div></div>"
-    +"<div style='background:#fffbec;padding:8px 10px;border-radius:5px;border-left:3px solid #b8860b'><div style='font-size:10px;color:#888;margin-bottom:2px'>TOPLAM GÜN</div><div style='font-size:16px;font-weight:800;color:#b8860b'>"+gun+" Gün</div></div>"
-    +"<div style='"+IS+"'><div style='font-size:10px;color:#888;margin-bottom:2px'>ARAÇ ADETİ</div><div style='font-size:14px;font-weight:800;color:#8B0000'>"+ad+" Adet</div></div>"
-    +inf+"</div>"
-    +"<table style='width:100%;border-collapse:collapse;font-size:12px;margin-bottom:12px'>"
-    +"<thead><tr style='background:#8B0000;color:white'><th style='padding:7px 8px;border:1px solid #6B0000;text-align:left'>ARDİYE DÖNEMİ</th><th style='padding:7px 8px;border:1px solid #6B0000;text-align:right'>ÜCRET/GÜN</th><th style='padding:7px 8px;border:1px solid #6B0000;text-align:center'>GÜN</th><th style='padding:7px 8px;border:1px solid #6B0000;text-align:right'>TOPLAM</th></tr></thead>"
-    +"<tbody>"+rows+"</tbody></table>"
-    +"<div style='background:#fafafa;border:1px solid #ddd;border-radius:6px;padding:12px;margin-bottom:14px'>"+oz
-    +"<div style='display:flex;justify-content:space-between;align-items:center;font-size:17px;font-weight:800;padding-top:10px;border-top:2px solid #8B0000;margin-top:6px'><span>GENEL TOPLAM</span><span style='color:#8B0000'>"+tot.toLocaleString("tr-TR")+" ₺</span></div></div>"
-    +"<div style='display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-top:28px;padding-top:14px;border-top:1px solid #ccc;text-align:center;font-size:11px;color:#555'>"
-    +"<div><div style='height:38px'></div><div style='border-top:1px solid #888;padding-top:7px'>DÜZENLEYEN</div></div>"
-    +"<div><div style='height:38px'></div><div style='border-top:1px solid #888;padding-top:7px'>TAH SİLATI YAPAN</div></div>"
-    +"<div><div style='height:38px'></div><div style='border-top:1px solid #888;padding-top:7px'>TARİH: "+FD(ci)+"<br>ALINDI NO:</div></div>"
+
+  return "<div style='font-family:Arial,sans-serif;font-size:11px;color:#000;width:100%;max-width:900px;margin:0 auto'>"
+    /* BAŞLIK */
+    +"<table style='width:100%;border-collapse:collapse;margin-bottom:0'>"
+    +"<tr><td colspan='6' style='background:#1F3864;color:white;font-size:18px;font-weight:bold;padding:10px 14px;border:1px solid #000;text-align:left'>"+baslik+"</td></tr>"
+    +"</table>"
+    /* LOGO ALANI + BİLGİLER */
+    +"<table style='width:100%;border-collapse:collapse;margin-bottom:0'>"
+    +"<tr>"
+    +"<td rowspan='7' style='width:60%;border:1px solid #000;padding:8px;vertical-align:middle;text-align:center'>"
+    +"<img src='"+LG+"' style='height:80px;object-fit:contain' alt=''>"
+    +"</td>"
+    +"<td style='width:20%;background:#BDD7EE;border:1px solid #000;padding:6px 10px;font-size:10px;font-weight:bold'>GİRİŞ TARİHİ:</td>"
+    +"<td style='width:20%;border:1px solid #000;padding:6px 10px;font-size:15px;font-weight:bold'>"+FD(gi)+"</td>"
+    +"</tr>"
+    +"<tr>"
+    +"<td style='background:#BDD7EE;border:1px solid #000;padding:6px 10px;font-size:10px;font-weight:bold'>ÇIKIŞ TARİHİ:</td>"
+    +"<td style='border:1px solid #000;padding:6px 10px;font-size:15px;font-weight:bold'>"+FD(ci)+"</td>"
+    +"</tr>"
+    +"<tr>"
+    +"<td style='background:#BDD7EE;border:1px solid #000;padding:6px 10px;font-size:10px;font-weight:bold'>TOPLAM GÜN</td>"
+    +"<td style='border:1px solid #000;padding:6px 10px;font-size:15px;font-weight:bold'>"+gun+"</td>"
+    +"</tr>"
+    +"<tr>"
+    +"<td style='background:#BDD7EE;border:1px solid #000;padding:6px 10px;font-size:10px;font-weight:bold'>ARAÇ ADETİ</td>"
+    +"<td style='border:1px solid #000;padding:6px 10px;font-size:15px;font-weight:bold'>"+ad+"</td>"
+    +"</tr>"
+    +"<tr>"
+    +"<td style='background:#BDD7EE;border:1px solid #000;padding:6px 10px;font-size:10px'>BEYANNAME/DİLEKÇE/ŞASE/TAKRİR NO:</td>"
+    +"<td style='border:1px solid #000;padding:6px 10px;font-size:13px;font-weight:bold'>"+(bn||"")+"</td>"
+    +"</tr>"
+    +"<tr>"
+    +"<td style='background:#BDD7EE;border:1px solid #000;padding:6px 10px;font-size:10px'>İTHALATÇI FİRMA /AD SOYAD</td>"
+    +"<td style='border:1px solid #000;padding:6px 10px;font-size:13px;font-weight:bold'>"+(fi||"")+"</td>"
+    +"</tr>"
+    +"<tr>"
+    +"<td style='background:#BDD7EE;border:1px solid #000;padding:6px 10px;font-size:10px'>TC/VERGİ NO :</td>"
+    +"<td style='border:1px solid #000;padding:6px 10px;font-size:13px;font-weight:bold'>"+(vn||"")+"</td>"
+    +"</tr>"
+    +"</table>"
+    /* TARİFE TABLOSU */
+    +"<table style='width:100%;border-collapse:collapse;margin-top:2px'>"
+    +"<tr>"
+    +"<th style='"+hd+"width:35%'>ARDİYE ÜCRETİ</th>"
+    +"<th style='"+hd+"width:12%'>TUTAR</th>"
+    +"<th style='"+hd+"width:12%'>GÜN</th>"
+    +"<th style='"+hd+"width:10%'></th>"
+    +"<th style='"+hd+"width:10%'>KDV</th>"
+    +"<th style='"+hd+"width:21%'>TOPLAM</th>"
+    +"</tr>"
+    +rows
+    /* TOPLAM SATIRI */
+    +"<tr>"
+    +"<td style='"+td+"font-size:10px'>TOPLAM</td>"
+    +"<td style='"+tdc+"'></td>"
+    +"<td style='"+tdc+"font-size:10px;color:red;font-weight:bold'>ADET</td>"
+    +"<td style='"+tdc+"'></td>"
+    +"<td style='"+tdc+"'></td>"
+    +"<td style='"+tdr+"font-size:14px;font-weight:bold'>"+N(ard)+"</td>"
+    +"</tr>"
+    /* ARAÇ GİRİŞ ÇIKIŞ */
+    +"<tr>"
+    +"<td style='"+td+"font-size:10px'>ARAÇ GİRİŞ ÇIKIŞ ÜCRETİ</td>"
+    +"<td style='"+tdc+"font-size:14px;font-weight:bold'>240</td>"
+    +"<td style='"+tdc+"font-size:14px;font-weight:bold;color:red'>"+(SG[p]?ad:0)+"</td>"
+    +"<td style='"+tdr+"font-size:14px;font-weight:bold'>"+N(gu)+"</td>"
+    +"<td style='"+tdc+"'>0</td>"
+    +"<td style='"+tdr+"font-size:14px;font-weight:bold'>"+N(gu)+"</td>"
+    +"</tr>"
+    /* YÜKLEME BOŞALTMA */
+    +"<tr>"
+    +"<td style='"+td+"font-size:10px'>YÜKLEME-BOŞALTMA</td>"
+    +"<td style='"+tdc+"font-size:14px;font-weight:bold'>160</td>"
+    +"<td style='"+tdc+"font-size:14px;font-weight:bold;color:red'>"+(SY[p]?ad:0)+"</td>"
+    +"<td style='"+tdr+"font-size:14px;font-weight:bold'>"+N(yu)+"</td>"
+    +"<td style='"+tdc+"'>0</td>"
+    +"<td style='"+tdr+"font-size:14px;font-weight:bold'>"+N(yu)+"</td>"
+    +"</tr>"
+    /* KDV */
+    +"<tr>"
+    +"<td style='"+td+"font-size:10px;color:red'>KDV</td>"
+    +"<td style='"+tdc+"'></td>"
+    +"<td style='"+tdc+"'></td>"
+    +"<td style='"+tdc+"'></td>"
+    +"<td style='"+tdc+"font-size:14px;font-weight:bold'>"+(kv>0?kv+"%":"0")+"</td>"
+    +"<td style='"+tdr+"font-size:14px;font-weight:bold'>"+N(kdv)+"</td>"
+    +"</tr>"
+    /* GENEL TOPLAM */
+    +"<tr style='background:#1F3864'>"
+    +"<td colspan='5' style='border:1px solid #000;padding:8px 10px;font-size:16px;font-weight:bold;color:white'>TOPLAM</td>"
+    +"<td style='"+tdr+"font-size:18px;font-weight:bold;background:#1F3864;color:white'>"+N(tot)+"</td>"
+    +"</tr>"
+    +"</table>"
+    /* İMZA SATIRI */
+    +"<table style='width:100%;border-collapse:collapse;margin-top:30px'>"
+    +"<tr>"
+    +"<td style='width:40%;border:none;padding:4px'></td>"
+    +"<td style='width:20%;text-align:center;border-top:1px solid #000;padding:6px;font-size:11px;font-weight:bold'>DÜZENLEYEN</td>"
+    +"<td style='width:20%;text-align:center;border-top:1px solid #000;padding:6px;font-size:11px;font-weight:bold'>TAHSİLATI YAPAN</td>"
+    +"<td style='width:20%;text-align:center;border-top:1px solid #000;padding:6px;font-size:11px;font-weight:bold'>ALINDI NO:</td>"
+    +"</tr>"
+    +"<tr>"
+    +"<td style='border:none;padding:4px'></td>"
+    +"<td style='text-align:center;padding:4px;font-size:13px;font-weight:bold'>&nbsp;</td>"
+    +"<td style='text-align:center;padding:4px;font-size:13px;font-weight:bold'>&nbsp;</td>"
+    +"<td style='text-align:center;padding:4px'>&nbsp;</td>"
+    +"</tr>"
+    +"<tr>"
+    +"<td style='border:none;padding:4px'></td>"
+    +"<td style='text-align:center;padding:4px;font-size:11px'>AMBAR MEMURU</td>"
+    +"<td style='text-align:center;padding:4px;font-size:11px'>SATIŞ MEMURU</td>"
+    +"<td style='text-align:center;padding:4px;font-size:11px'>"+FD(ci)+"</td>"
+    +"</tr>"
+    +"</table>"
     +"</div>";
 }
 
