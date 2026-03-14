@@ -463,6 +463,7 @@ setTimeout(function(){try{w.print();}catch(e){}},800);
 }
 
 /* OLAY DİNLEYİCİLERİ */
+window.addEventListener(“load”, function(){
 G(“t0”).onclick=function(){sekme(0);};
 G(“t1”).onclick=function(){sekme(1);};
 G(“t2”).onclick=function(){sekme(2);};
@@ -488,6 +489,7 @@ G(“pr”+p).onclick=function(){yazdir(p);};
 
 var bugun=new Date().toISOString().split(“T”)[0];
 for(var _j=0;_j<3;_j++)G(“ci”+_j).value=bugun;
+});
 </script>
 
 </body>
