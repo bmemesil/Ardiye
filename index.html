@@ -46,7 +46,7 @@ input[type=date]{color-scheme:dark}
 .rl span:last-child{font-weight:600}
 .rtot{display:flex;justify-content:space-between;align-items:center;margin-top:12px;padding-top:12px;border-top:1px solid rgba(139,0,0,.4)}
 .rtot-v{font-size:28px;font-weight:800;color:#e74c3c}
-.brow{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px}
+.brow{display:grid;grid-template-columns:1fr;gap:8px;margin-bottom:14px}
 .btn{width:100%;border:none;border-radius:11px;padding:15px 8px;font-size:14px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:5px;font-family:inherit}
 .bpr{background:#8B0000;color:#fff}
 #pov{display:none;position:fixed;inset:0;z-index:999;background:#111;overflow-y:auto;-webkit-overflow-scrolling:touch}
@@ -54,23 +54,23 @@ input[type=date]{color-scheme:dark}
 #ptbar{display:flex;gap:6px;padding:10px;background:#150202;border-bottom:1px solid #8B0000;position:sticky;top:0}
 #ptbar button{border:none;border-radius:8px;padding:12px 8px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;flex:1}
 .pt-p{background:#8B0000;color:#fff}
+.pt-s{background:#1d6f42;color:#fff}
 .pt-c{background:#444;color:#fff}
-#pdoc{background:#fff;color:#111;margin:10px;border-radius:4px;padding:12px;font-family:Arial,sans-serif;font-size:11px}
-
-@media print {
-body > *:not(#pov) { display: none !important; }
-#pov { display: block !important; position: static !important; background: white !important; overflow: visible !important; }
-#ptbar { display: none !important; }
-#pdoc { margin: 0 !important; border-radius: 0 !important; padding: 8mm !important; }
+#pdoc{background:#fff;color:#111;margin:10px;border-radius:4px;padding:12px;font-family:'Times New Roman',Times,serif;font-size:11px}
+@media print{
+  body>*:not(#pov){display:none!important}
+  #pov{display:block!important;position:static!important;background:white!important;overflow:visible!important}
+  #ptbar{display:none!important}
+  #pdoc{margin:0!important;border-radius:0!important;padding:0!important;box-shadow:none!important}
 }
 </style>
-
 </head>
 <body>
 
 <div id="pov">
   <div id="ptbar">
-    <button class="pt-p" id="bPDF">&#128424; PDF Kaydet</button>
+    <button class="pt-p" id="bPDF">&#128424; PDF Yazd&#305;r</button>
+    <button class="pt-s" id="bShare">&#128279; PDF G&#246;nder</button>
     <button class="pt-c" id="bKapat">&#10005; Kapat</button>
   </div>
   <div id="pdoc"></div>
@@ -94,143 +94,137 @@ body > *:not(#pov) { display: none !important; }
 </div>
 
 <div class="pg on" id="pg0"><div class="wrap">
-<div class="card"><div class="ct">Tarih ve Ara&#231; Bilgileri</div>
-<div class="f2">
-  <div class="f"><label>Giri&#351; Tarihi</label><input class="fi" type="date" id="gi0"></div>
-  <div class="f"><label>&#199;&#305;k&#305;&#351; Tarihi</label><input class="fi" type="date" id="ci0"></div>
-</div>
+<div class="card"><div class="ct">Tarih ve Araç Bilgileri</div>
+<div class="f"><label>Giriş Tarihi</label><input class="fi" type="date" id="gi0"></div>
+<div class="f"><label>Çıkış Tarihi</label><input class="fi" type="date" id="ci0"></div>
 <div class="gunbox"><div style="font-size:22px">&#128197;</div><div>
-  <div style="font-size:10px;color:#8b949e">Toplam G&#252;n (giri&#351; dahil)</div>
+  <div style="font-size:10px;color:#8b949e">Toplam Gün (giriş dahil)</div>
   <div class="gunval" id="gn0">0</div>
 </div></div>
 <div class="f2">
-  <div class="f"><label>Ara&#231; Adedi</label><input class="fi" type="number" id="ad0" value="1" min="1"></div>
+  <div class="f"><label>Araç Adedi</label><input class="fi" type="number" id="ad0" value="1" min="1"></div>
   <div class="f"><label>KDV %</label><input class="fi" type="number" id="kv0" value="0" min="0" max="100"></div>
 </div>
 <button class="hbtn" id="hb0">&#128260; HESAPLA</button>
 </div>
-<div class="card"><div class="ct">M&#252;&#351;teri Bilgileri</div>
-<div class="f"><label>Beyanname / &#350;ase No</label><input class="fi" type="text" id="bn0" placeholder="No giriniz..."></div>
-<div class="f"><label>Firma / Ad Soyad</label><input class="fi" type="text" id="fi0" placeholder="Firma ad&#305;..."></div>
+<div class="card"><div class="ct">Müşteri Bilgileri</div>
+<div class="f"><label>Beyanname / Şase No</label><input class="fi" type="text" id="bn0" placeholder="No giriniz..."></div>
+<div class="f"><label>Firma / Ad Soyad</label><input class="fi" type="text" id="fi0" placeholder="Firma adı..."></div>
 <div class="f"><label>TC / Vergi No</label><input class="fi" type="text" id="vn0" placeholder="Vergi no..."></div>
 </div>
-<div class="card"><div class="ct">Ardiye Tarifeleri &#8212; ACIK ARD&#304;YE</div><div id="r0"></div></div>
+<div class="card"><div class="ct">Ardiye Tarifeleri — ACIK ARDİYE</div><div id="r0"></div></div>
 <div class="card"><div class="ct">Ek Hizmetler</div>
-<div class="sr"><div><div style="font-size:13px">Ara&#231; Giri&#351;/&#199;&#305;k&#305;&#351;</div><div style="font-size:11px;color:#8b949e">240 &#8378;/ara&#231;</div></div>
-<div style="display:flex;align-items:center;gap:6px"><span id="gu0" style="font-weight:700">0 &#8378;</span><div class="chk" id="gc0"></div></div></div>
-<div class="sr"><div><div style="font-size:13px">Y&#252;kleme/Bo&#351;altma</div><div style="font-size:11px;color:#8b949e">160 &#8378;/ara&#231;</div></div>
-<div style="display:flex;align-items:center;gap:6px"><span id="yu0" style="font-weight:700">0 &#8378;</span><div class="chk" id="yc0"></div></div></div>
+<div class="sr"><div><div style="font-size:13px">Araç Giriş/Çıkış</div><div style="font-size:11px;color:#8b949e">240 ₺/araç</div></div>
+<div style="display:flex;align-items:center;gap:6px"><span id="gu0" style="font-weight:700">0 ₺</span><div class="chk" id="gc0"></div></div></div>
+<div class="sr"><div><div style="font-size:13px">Yükleme/Boşaltma</div><div style="font-size:11px;color:#8b949e">160 ₺/araç</div></div>
+<div style="display:flex;align-items:center;gap:6px"><span id="yu0" style="font-weight:700">0 ₺</span><div class="chk" id="yc0"></div></div></div>
 </div>
-<div class="card"><div class="ct">&#304;mza Bilgileri</div>
+<div class="card"><div class="ct">İmza Bilgileri</div>
 <div class="f2">
-  <div class="f"><label>D&#252;zenleyen Ad Soyad</label><input class="fi" type="text" id="dz0" placeholder="Ali Y&#252;ksel..."></div>
-  <div class="f"><label>D&#252;zenleyen Unvan</label><input class="fi" type="text" id="du0" placeholder="Ambar Memuru..."></div>
+  <div class="f"><label>Düzeyleyen Ad Soyad</label><input class="fi" type="text" id="dz0" placeholder="Ad Soyad..."></div>
+  <div class="f"><label>Düzeyleyen Unvan</label><input class="fi" type="text" id="du0" placeholder="Ambar Memuru..."></div>
 </div>
 <div class="f2">
-  <div class="f"><label>Tahsilat&#305; Yapan Ad Soyad</label><input class="fi" type="text" id="tz0" placeholder="Damla Ko&#231;..."></div>
-  <div class="f"><label>Tahsilat&#305; Yapan Unvan</label><input class="fi" type="text" id="tu0" placeholder="Sat&#305;&#351; Memuru..."></div>
+  <div class="f"><label>Tahsilatı Yapan Ad Soyad</label><input class="fi" type="text" id="tz0" placeholder="Ad Soyad..."></div>
+  <div class="f"><label>Tahsilatı Yapan Unvan</label><input class="fi" type="text" id="tu0" placeholder="Satış Memuru..."></div>
 </div>
 </div>
 <div class="rc"><div style="font-size:11px;font-weight:700;color:#e74c3c;text-transform:uppercase;margin-bottom:12px">Hesaplama Sonucu</div>
 <div id="bd0"></div>
-<div class="rtot"><div style="font-weight:700;font-size:14px">TOPLAM</div><div class="rtot-v" id="tt0">0 &#8378;</div></div>
+<div class="rtot"><div style="font-weight:700;font-size:14px">TOPLAM</div><div class="rtot-v" id="tt0">0 ₺</div></div>
 </div>
-<div class="brow" style="grid-template-columns:1fr">
-  <button class="btn bpr" id="pr0">&#128424; Yazd&#305;r / PDF Al</button>
+<div class="brow">
+  <button class="btn bpr" id="pr0">&#128424; Yazdır / PDF Al</button>
 </div>
 </div></div>
 
 <div class="pg" id="pg1"><div class="wrap">
-<div class="card"><div class="ct">Tarih ve Ara&#231; Bilgileri</div>
-<div class="f2">
-  <div class="f"><label>Giri&#351; Tarihi</label><input class="fi" type="date" id="gi1"></div>
-  <div class="f"><label>&#199;&#305;k&#305;&#351; Tarihi</label><input class="fi" type="date" id="ci1"></div>
-</div>
+<div class="card"><div class="ct">Tarih ve Araç Bilgileri</div>
+<div class="f"><label>Giriş Tarihi</label><input class="fi" type="date" id="gi1"></div>
+<div class="f"><label>Çıkış Tarihi</label><input class="fi" type="date" id="ci1"></div>
 <div class="gunbox"><div style="font-size:22px">&#128197;</div><div>
-  <div style="font-size:10px;color:#8b949e">Toplam G&#252;n (giri&#351; dahil)</div>
+  <div style="font-size:10px;color:#8b949e">Toplam Gün (giriş dahil)</div>
   <div class="gunval" id="gn1">0</div>
 </div></div>
 <div class="f2">
-  <div class="f"><label>Ara&#231; Adedi</label><input class="fi" type="number" id="ad1" value="1" min="1"></div>
+  <div class="f"><label>Araç Adedi</label><input class="fi" type="number" id="ad1" value="1" min="1"></div>
   <div class="f"><label>KDV %</label><input class="fi" type="number" id="kv1" value="0" min="0" max="100"></div>
 </div>
 <button class="hbtn" id="hb1">&#128260; HESAPLA</button>
 </div>
-<div class="card"><div class="ct">M&#252;&#351;teri Bilgileri</div>
-<div class="f"><label>Beyanname / &#350;ase No</label><input class="fi" type="text" id="bn1" placeholder="No giriniz..."></div>
-<div class="f"><label>Firma / Ad Soyad</label><input class="fi" type="text" id="fi1" placeholder="Firma ad&#305;..."></div>
+<div class="card"><div class="ct">Müşteri Bilgileri</div>
+<div class="f"><label>Beyanname / Şase No</label><input class="fi" type="text" id="bn1" placeholder="No giriniz..."></div>
+<div class="f"><label>Firma / Ad Soyad</label><input class="fi" type="text" id="fi1" placeholder="Firma adı..."></div>
 <div class="f"><label>TC / Vergi No</label><input class="fi" type="text" id="vn1" placeholder="Vergi no..."></div>
 </div>
-<div class="card"><div class="ct">Ardiye Tarifeleri &#8212; 3 TON &#220;ZER&#304;</div><div id="r1"></div></div>
+<div class="card"><div class="ct">Ardiye Tarifeleri — 3 TON ÜZERİ</div><div id="r1"></div></div>
 <div class="card"><div class="ct">Ek Hizmetler</div>
-<div class="sr"><div><div style="font-size:13px">Ara&#231; Giri&#351;/&#199;&#305;k&#305;&#351;</div><div style="font-size:11px;color:#8b949e">240 &#8378;/ara&#231;</div></div>
-<div style="display:flex;align-items:center;gap:6px"><span id="gu1" style="font-weight:700">0 &#8378;</span><div class="chk" id="gc1"></div></div></div>
-<div class="sr"><div><div style="font-size:13px">Y&#252;kleme/Bo&#351;altma</div><div style="font-size:11px;color:#8b949e">160 &#8378;/ara&#231;</div></div>
-<div style="display:flex;align-items:center;gap:6px"><span id="yu1" style="font-weight:700">0 &#8378;</span><div class="chk" id="yc1"></div></div></div>
+<div class="sr"><div><div style="font-size:13px">Araç Giriş/Çıkış</div><div style="font-size:11px;color:#8b949e">240 ₺/araç</div></div>
+<div style="display:flex;align-items:center;gap:6px"><span id="gu1" style="font-weight:700">0 ₺</span><div class="chk" id="gc1"></div></div></div>
+<div class="sr"><div><div style="font-size:13px">Yükleme/Boşaltma</div><div style="font-size:11px;color:#8b949e">160 ₺/araç</div></div>
+<div style="display:flex;align-items:center;gap:6px"><span id="yu1" style="font-weight:700">0 ₺</span><div class="chk" id="yc1"></div></div></div>
 </div>
-<div class="card"><div class="ct">&#304;mza Bilgileri</div>
+<div class="card"><div class="ct">İmza Bilgileri</div>
 <div class="f2">
-  <div class="f"><label>D&#252;zenleyen Ad Soyad</label><input class="fi" type="text" id="dz1" placeholder="Ad Soyad..."></div>
-  <div class="f"><label>D&#252;zenleyen Unvan</label><input class="fi" type="text" id="du1" placeholder="Unvan..."></div>
+  <div class="f"><label>Düzeyleyen Ad Soyad</label><input class="fi" type="text" id="dz1" placeholder="Ad Soyad..."></div>
+  <div class="f"><label>Düzeyleyen Unvan</label><input class="fi" type="text" id="du1" placeholder="Ambar Memuru..."></div>
 </div>
 <div class="f2">
-  <div class="f"><label>Tahsilat&#305; Yapan Ad Soyad</label><input class="fi" type="text" id="tz1" placeholder="Ad Soyad..."></div>
-  <div class="f"><label>Tahsilat&#305; Yapan Unvan</label><input class="fi" type="text" id="tu1" placeholder="Unvan..."></div>
+  <div class="f"><label>Tahsilatı Yapan Ad Soyad</label><input class="fi" type="text" id="tz1" placeholder="Ad Soyad..."></div>
+  <div class="f"><label>Tahsilatı Yapan Unvan</label><input class="fi" type="text" id="tu1" placeholder="Satış Memuru..."></div>
 </div>
 </div>
 <div class="rc"><div style="font-size:11px;font-weight:700;color:#e74c3c;text-transform:uppercase;margin-bottom:12px">Hesaplama Sonucu</div>
 <div id="bd1"></div>
-<div class="rtot"><div style="font-weight:700;font-size:14px">TOPLAM</div><div class="rtot-v" id="tt1">0 &#8378;</div></div>
+<div class="rtot"><div style="font-weight:700;font-size:14px">TOPLAM</div><div class="rtot-v" id="tt1">0 ₺</div></div>
 </div>
-<div class="brow" style="grid-template-columns:1fr">
-  <button class="btn bpr" id="pr1">&#128424; Yazd&#305;r / PDF Al</button>
+<div class="brow">
+  <button class="btn bpr" id="pr1">&#128424; Yazdır / PDF Al</button>
 </div>
 </div></div>
 
 <div class="pg" id="pg2"><div class="wrap">
-<div class="card"><div class="ct">Tarih ve Ara&#231; Bilgileri</div>
-<div class="f2">
-  <div class="f"><label>Giri&#351; Tarihi</label><input class="fi" type="date" id="gi2"></div>
-  <div class="f"><label>&#199;&#305;k&#305;&#351; Tarihi</label><input class="fi" type="date" id="ci2"></div>
-</div>
+<div class="card"><div class="ct">Tarih ve Araç Bilgileri</div>
+<div class="f"><label>Giriş Tarihi</label><input class="fi" type="date" id="gi2"></div>
+<div class="f"><label>Çıkış Tarihi</label><input class="fi" type="date" id="ci2"></div>
 <div class="gunbox"><div style="font-size:22px">&#128197;</div><div>
-  <div style="font-size:10px;color:#8b949e">Toplam G&#252;n (giri&#351; dahil)</div>
+  <div style="font-size:10px;color:#8b949e">Toplam Gün (giriş dahil)</div>
   <div class="gunval" id="gn2">0</div>
 </div></div>
 <div class="f2">
-  <div class="f"><label>Ara&#231; Adedi</label><input class="fi" type="number" id="ad2" value="1" min="1"></div>
+  <div class="f"><label>Araç Adedi</label><input class="fi" type="number" id="ad2" value="1" min="1"></div>
   <div class="f"><label>KDV %</label><input class="fi" type="number" id="kv2" value="0" min="0" max="100"></div>
 </div>
 <button class="hbtn" id="hb2">&#128260; HESAPLA</button>
 </div>
-<div class="card"><div class="ct">M&#252;&#351;teri Bilgileri</div>
-<div class="f"><label>Beyanname / &#350;ase No</label><input class="fi" type="text" id="bn2" placeholder="No giriniz..."></div>
-<div class="f"><label>Firma / Ad Soyad</label><input class="fi" type="text" id="fi2" placeholder="Firma ad&#305;..."></div>
+<div class="card"><div class="ct">Müşteri Bilgileri</div>
+<div class="f"><label>Beyanname / Şase No</label><input class="fi" type="text" id="bn2" placeholder="No giriniz..."></div>
+<div class="f"><label>Firma / Ad Soyad</label><input class="fi" type="text" id="fi2" placeholder="Firma adı..."></div>
 <div class="f"><label>TC / Vergi No</label><input class="fi" type="text" id="vn2" placeholder="Vergi no..."></div>
 </div>
-<div class="card"><div class="ct">Ardiye Tarifeleri &#8212; KAPALI ARD&#304;YE</div><div id="r2"></div></div>
+<div class="card"><div class="ct">Ardiye Tarifeleri — KAPALI ARDİYE</div><div id="r2"></div></div>
 <div class="card"><div class="ct">Ek Hizmetler</div>
-<div class="sr"><div><div style="font-size:13px">Ara&#231; Giri&#351;/&#199;&#305;k&#305;&#351;</div><div style="font-size:11px;color:#8b949e">240 &#8378;/ara&#231;</div></div>
-<div style="display:flex;align-items:center;gap:6px"><span id="gu2" style="font-weight:700">0 &#8378;</span><div class="chk" id="gc2"></div></div></div>
-<div class="sr"><div><div style="font-size:13px">Y&#252;kleme/Bo&#351;altma</div><div style="font-size:11px;color:#8b949e">160 &#8378;/ara&#231;</div></div>
-<div style="display:flex;align-items:center;gap:6px"><span id="yu2" style="font-weight:700">0 &#8378;</span><div class="chk" id="yc2"></div></div></div>
+<div class="sr"><div><div style="font-size:13px">Araç Giriş/Çıkış</div><div style="font-size:11px;color:#8b949e">240 ₺/araç</div></div>
+<div style="display:flex;align-items:center;gap:6px"><span id="gu2" style="font-weight:700">0 ₺</span><div class="chk" id="gc2"></div></div></div>
+<div class="sr"><div><div style="font-size:13px">Yükleme/Boşaltma</div><div style="font-size:11px;color:#8b949e">160 ₺/araç</div></div>
+<div style="display:flex;align-items:center;gap:6px"><span id="yu2" style="font-weight:700">0 ₺</span><div class="chk" id="yc2"></div></div></div>
 </div>
-<div class="card"><div class="ct">&#304;mza Bilgileri</div>
+<div class="card"><div class="ct">İmza Bilgileri</div>
 <div class="f2">
-  <div class="f"><label>D&#252;zenleyen Ad Soyad</label><input class="fi" type="text" id="dz2" placeholder="Ad Soyad..."></div>
-  <div class="f"><label>D&#252;zenleyen Unvan</label><input class="fi" type="text" id="du2" placeholder="Unvan..."></div>
+  <div class="f"><label>Düzeyleyen Ad Soyad</label><input class="fi" type="text" id="dz2" placeholder="Ad Soyad..."></div>
+  <div class="f"><label>Düzeyleyen Unvan</label><input class="fi" type="text" id="du2" placeholder="Ambar Memuru..."></div>
 </div>
 <div class="f2">
-  <div class="f"><label>Tahsilat&#305; Yapan Ad Soyad</label><input class="fi" type="text" id="tz2" placeholder="Ad Soyad..."></div>
-  <div class="f"><label>Tahsilat&#305; Yapan Unvan</label><input class="fi" type="text" id="tu2" placeholder="Unvan..."></div>
+  <div class="f"><label>Tahsilatı Yapan Ad Soyad</label><input class="fi" type="text" id="tz2" placeholder="Ad Soyad..."></div>
+  <div class="f"><label>Tahsilatı Yapan Unvan</label><input class="fi" type="text" id="tu2" placeholder="Satış Memuru..."></div>
 </div>
 </div>
 <div class="rc"><div style="font-size:11px;font-weight:700;color:#e74c3c;text-transform:uppercase;margin-bottom:12px">Hesaplama Sonucu</div>
 <div id="bd2"></div>
-<div class="rtot"><div style="font-weight:700;font-size:14px">TOPLAM</div><div class="rtot-v" id="tt2">0 &#8378;</div></div>
+<div class="rtot"><div style="font-weight:700;font-size:14px">TOPLAM</div><div class="rtot-v" id="tt2">0 ₺</div></div>
 </div>
-<div class="brow" style="grid-template-columns:1fr">
-  <button class="btn bpr" id="pr2">&#128424; Yazd&#305;r / PDF Al</button>
+<div class="brow">
+  <button class="btn bpr" id="pr2">&#128424; Yazdır / PDF Al</button>
 </div>
 </div></div>
 
@@ -246,7 +240,6 @@ var SG=[0,0,0],SY=[0,0,0],CUR=0;
 function G(id){return document.getElementById(id);}
 function nGun(a,b){if(!a||!b)return 0;var d=Math.round((new Date(b)-new Date(a))/86400000)+1;return d>0?d:0;}
 function bantlar(n,tf){var r=[],rem=n;for(var i=0;i<tf.length;i++){var t=tf[i],bs=t.t>=99999?rem:(t.t-t.f+1),u=rem>0?Math.min(rem,bs):0;r.push({l:t.l,d:t.d,u:u,s:t.d*u,on:u>0});rem=Math.max(0,rem-u);}return r;}
-function TL(n){return n.toLocaleString("tr-TR")+" TL";}
 function FD(v){if(!v)return "";var p=v.split("-");return p[2]+"."+p[1]+"."+p[0];}
 
 function sekme(i){CUR=i;for(var j=0;j<3;j++){G("t"+j).className="tab"+(j===i?" on":"");G("pg"+j).className="pg"+(j===i?" on":"");}}
@@ -256,7 +249,7 @@ function tikla(p,t){
   var on=t==="g"?SG[p]:SY[p];
   var el=G((t==="g"?"gc":"yc")+p);
   el.className="chk"+(on?" on":"");
-  el.textContent=on?"✓":"";
+  el.textContent=on?"\u2713":"";
   hesapla(p);
 }
 
@@ -270,26 +263,25 @@ function hesapla(p){
   for(var i=0;i<bs.length;i++){
     var b=bs[i];
     rh+='<div class="rr'+(b.on?" on":"")+'"><div><div style="font-size:13px">'+b.l+'</div>'
-      +'<div style="font-size:11px;color:#8b949e">'+b.d.toLocaleString("tr-TR")+' ₺/gün'+(b.on?" — "+b.u+" gün":"")+'</div></div>'
-      +'<div class="rval">'+(b.on?b.s.toLocaleString("tr-TR")+" ₺":"—")+'</div></div>';
+      +'<div style="font-size:11px;color:#8b949e">'+b.d.toLocaleString("tr-TR")+' \u20ba/g\u00fcn'+(b.on?" \u2014 "+b.u+" g\u00fcn":"")+'</div></div>'
+      +'<div class="rval">'+(b.on?b.s.toLocaleString("tr-TR")+" \u20ba":"\u2014")+'</div></div>';
   }
   G("r"+p).innerHTML=rh;
   var ard=0;for(var i=0;i<bs.length;i++)ard+=bs[i].s;ard*=ad;
   var gu=SG[p]?240*ad:0,yu=SY[p]?160*ad:0;
   var ara=ard+gu+yu,kdv=Math.round(ara*kv/100),tot=ara+kdv;
-  G("gu"+p).textContent=gu.toLocaleString("tr-TR")+" ₺";
-  G("yu"+p).textContent=yu.toLocaleString("tr-TR")+" ₺";
+  G("gu"+p).textContent=gu.toLocaleString("tr-TR")+" \u20ba";
+  G("yu"+p).textContent=yu.toLocaleString("tr-TR")+" \u20ba";
   var bh="";
-  for(var i=0;i<bs.length;i++){var b=bs[i];if(b.on)bh+='<div class="rl"><span>'+b.l+' ('+b.u+' gün × '+b.d.toLocaleString("tr-TR")+' ₺)</span><span>'+(b.s*ad).toLocaleString("tr-TR")+' ₺</span></div>';}
-  if(gu>0)bh+='<div class="rl"><span>Araç Giriş/Çıkış</span><span>'+gu.toLocaleString("tr-TR")+' ₺</span></div>';
-  if(yu>0)bh+='<div class="rl"><span>Yükleme/Boşaltma</span><span>'+yu.toLocaleString("tr-TR")+' ₺</span></div>';
-  bh+='<div class="rl"><span>Ara Toplam</span><span>'+ara.toLocaleString("tr-TR")+' ₺</span></div>';
-  if(kv>0)bh+='<div class="rl"><span>KDV (%'+kv+')</span><span>'+kdv.toLocaleString("tr-TR")+' ₺</span></div>';
+  for(var i=0;i<bs.length;i++){var b=bs[i];if(b.on)bh+='<div class="rl"><span>'+b.l+' ('+b.u+' g\u00fcn \u00d7 '+b.d.toLocaleString("tr-TR")+' \u20ba)</span><span>'+(b.s*ad).toLocaleString("tr-TR")+' \u20ba</span></div>';}
+  if(gu>0)bh+='<div class="rl"><span>Ara\u00e7 Giri\u015f/\u00c7\u0131k\u0131\u015f</span><span>'+gu.toLocaleString("tr-TR")+' \u20ba</span></div>';
+  if(yu>0)bh+='<div class="rl"><span>Y\u00fckleme/Bo\u015faltma</span><span>'+yu.toLocaleString("tr-TR")+' \u20ba</span></div>';
+  bh+='<div class="rl"><span>Ara Toplam</span><span>'+ara.toLocaleString("tr-TR")+' \u20ba</span></div>';
+  if(kv>0)bh+='<div class="rl"><span>KDV (%'+kv+')</span><span>'+kdv.toLocaleString("tr-TR")+' \u20ba</span></div>';
   G("bd"+p).innerHTML=bh;
-  G("tt"+p).textContent=tot.toLocaleString("tr-TR")+" ₺";
+  G("tt"+p).textContent=tot.toLocaleString("tr-TR")+" \u20ba";
 }
 
-/* ===== PDF BELGESI - SABLONA BIREBIR ===== */
 function printDoc(p){
   var gi=G("gi"+p).value,ci=G("ci"+p).value;
   var ad=parseInt(G("ad"+p).value)||1,kv=parseFloat(G("kv"+p).value)||0;
@@ -300,144 +292,97 @@ function printDoc(p){
   var bn=G("bn"+p).value,fi=G("fi"+p).value,vn=G("vn"+p).value;
   var dz=G("dz"+p).value,du=G("du"+p).value;
   var tz=G("tz"+p).value,tu=G("tu"+p).value;
-  var baslik=["ARDİYE ÜCRETİ HESAPLAMA TABLOSU","ARDİYE ÜCRETİ HESAPLAMA TABLOSU","KAPALI ALAN ARDİYE ÜCRETİ HESAPLAMA TABLOSU"][p];
-  var BANLAR=["1-20 Gün","21-50 Gün","51-80 Gün","81 gün ve sonrası"];
+  var baslik=["ARD\u0130YE \u00dcCRET\u0130 HESAPLAMA TABLOSU","ARD\u0130YE \u00dcCRET\u0130 HESAPLAMA TABLOSU","KAPALI ALAN ARD\u0130YE \u00dcCRET\u0130 HESAPLAMA TABLOSU"][p];
+  var BANLAR=["1-20 G\u00fcn","21-50 G\u00fcn","51-80 G\u00fcn","81 g\u00fcn ve sonras\u0131"];
 
-  /* Hücre stilleri */
-  var etiket="border:1px solid #000;padding:4px 6px;font-size:9px;font-weight:bold;text-align:left;vertical-align:middle;";
-  var deger="border:1px solid #000;padding:4px 6px;font-size:11px;font-weight:bold;text-align:left;vertical-align:middle;";
-  var th="border:1px solid #000;padding:4px 6px;font-size:9px;font-weight:bold;text-align:center;vertical-align:middle;";
-  var td="border:1px solid #000;padding:4px 6px;font-size:10px;text-align:left;vertical-align:middle;";
-  var tc="border:1px solid #000;padding:4px 6px;font-size:11px;font-weight:bold;text-align:center;vertical-align:middle;";
-  var tr="border:1px solid #000;padding:4px 6px;font-size:11px;font-weight:bold;text-align:right;vertical-align:middle;";
+  var B="border:1px solid #000;";
+  var TD=B+"padding:3px 5px;font-size:9pt;font-family:'Times New Roman',Times,serif;vertical-align:middle;";
+  var TDL=TD+"text-align:left;";
+  var TDC=TD+"text-align:center;";
+  var TDR=TD+"text-align:right;";
+  var TDB=TD+"text-align:left;font-weight:bold;";
+  var TDBC=TD+"text-align:center;font-weight:bold;";
+  var TDBR=TD+"text-align:right;font-weight:bold;";
+  var ETK=TD+"text-align:left;font-weight:bold;font-size:8pt;background:#f5f5f5;";
 
   var rows="";
   for(var i=0;i<bs.length;i++){
     var b=bs[i];
     rows+="<tr>"
-      +"<td style='"+td+"'>"+BANLAR[i]+"</td>"
-      +"<td style='"+tc+"'>"+b.d.toLocaleString("tr-TR")+"</td>"
-      +"<td style='"+tc+"'>"+(b.on?b.u:0)+"</td>"
-      +"<td style='"+tc+"'></td>"
-      +"<td style='"+tc+"'></td>"
-      +"<td style='"+tr+"'>"+(b.on?(b.s*ad).toLocaleString("tr-TR")+" TL":"0,00 TL")+"</td>"
+      +"<td style='"+TDL+"'>"+BANLAR[i]+"</td>"
+      +"<td style='"+TDBC+"'>"+b.d.toLocaleString("tr-TR")+"</td>"
+      +"<td style='"+TDBC+"'>"+(b.on?b.u:0)+"</td>"
+      +"<td style='"+TDC+"'></td>"
+      +"<td style='"+TDC+"'></td>"
+      +"<td style='"+TDBR+"'>"+(b.on?(b.s*ad).toLocaleString("tr-TR")+",00 TL":"0,00 TL")+"</td>"
       +"</tr>";
   }
 
   var wrap=document.createElement("div");
-  wrap.style.cssText="font-family:Arial,sans-serif;color:#000;width:190mm;margin:0 auto;font-size:10px;";
+  wrap.style.cssText="font-family:'Times New Roman',Times,serif;color:#000;width:190mm;margin:0 auto;";
 
   wrap.innerHTML=
-    /* BAŞLIK */
-    "<div style='text-align:left;font-size:13px;font-weight:bold;margin-bottom:6px;text-transform:uppercase'>"+baslik+"</div>"
-
-    /* ÜST BİLGİ TABLOSU */
-    +"<table style='width:100%;border-collapse:collapse;margin-bottom:4px'>"
-    +"<tr>"
-    +"<td style='"+etiket+"width:30%'>GİRİŞ TARİHİ:</td>"
-    +"<td style='"+deger+"width:20%'>"+FD(gi)+"</td>"
-    +"<td style='width:5%;border:none'></td>"
-    +"<td style='"+etiket+"width:30%'>ÇIKIŞ TARİHİ:</td>"
-    +"<td style='"+deger+"width:15%'>"+FD(ci)+"</td>"
-    +"</tr>"
-    +"<tr>"
-    +"<td style='"+etiket+"'>TOPLAM GÜN</td>"
-    +"<td style='"+deger+"'>"+gun+"</td>"
-    +"<td style='border:none'></td>"
-    +"<td style='"+etiket+"'>ARAÇ ADETİ</td>"
-    +"<td style='"+deger+"'>"+ad+"</td>"
-    +"</tr>"
-    +"<tr>"
-    +"<td style='"+etiket+"'>BEYANNAME/DİLEKÇE/ŞASE/TAKRİR NO:</td>"
-    +"<td colspan='4' style='"+deger+"'>"+(bn||"")+"</td>"
-    +"</tr>"
-    +"<tr>"
-    +"<td style='"+etiket+"'>İTHALATÇI FİRMA /AD SOYAD</td>"
-    +"<td colspan='4' style='"+deger+"'>"+(fi||"")+"</td>"
-    +"</tr>"
-    +"<tr>"
-    +"<td style='"+etiket+"'>TC/VERGİ NO :</td>"
-    +"<td colspan='4' style='"+deger+"'>"+(vn||"")+"</td>"
-    +"</tr>"
+    "<div style='font-size:12pt;font-weight:bold;margin-bottom:8px;font-family:\'Times New Roman\',Times,serif'>"+baslik+"</div>"
+    +"<table style='width:100%;border-collapse:collapse;margin-bottom:6px'>"
+    +"<tr><td style='"+ETK+"width:45%'>G\u0130R\u0130\u015e TAR\u0130H\u0130:</td><td style='"+TDB+"width:55%'>"+FD(gi)+"</td></tr>"
+    +"<tr><td style='"+ETK+"'>\u00c7IKI\u015e TAR\u0130H\u0130:</td><td style='"+TDB+"'>"+FD(ci)+"</td></tr>"
+    +"<tr><td style='"+ETK+"'>TOPLAM G\u00dcN</td><td style='"+TDB+"'>"+gun+"</td></tr>"
+    +"<tr><td style='"+ETK+"'>ARA\u00c7 ADET\u0130</td><td style='"+TDB+"'>"+ad+"</td></tr>"
+    +"<tr><td style='"+ETK+"'>BEYANNAME/D\u0130LEK\u00c7E/\u015eASE/TAKR\u0130R NO:</td><td style='"+TDL+"'>"+(bn||"")+"</td></tr>"
+    +"<tr><td style='"+ETK+"'>\u0130THALAT\u00c7I F\u0130RMA /AD SOYAD</td><td style='"+TDL+"'>"+(fi||"")+"</td></tr>"
+    +"<tr><td style='"+ETK+"'>TC/VERG\u0130 NO :</td><td style='"+TDL+"'>"+(vn||"")+"</td></tr>"
     +"</table>"
-
-    /* TARİFE TABLOSU */
-    +"<table style='width:100%;border-collapse:collapse;margin-bottom:0'>"
+    +"<table style='width:100%;border-collapse:collapse'>"
     +"<tr>"
-    +"<th style='"+th+"width:30%'>ARDİYE ÜCRETİ</th>"
-    +"<th style='"+th+"width:12%'>TUTAR</th>"
-    +"<th style='"+th+"width:12%'>GÜN</th>"
-    +"<th style='"+th+"width:10%'></th>"
-    +"<th style='"+th+"width:10%'>KDV</th>"
-    +"<th style='"+th+"width:26%'>TOPLAM</th>"
+    +"<th style='"+TD+"text-align:center;font-weight:bold;width:32%'>ARD\u0130YE \u00dcCRET\u0130</th>"
+    +"<th style='"+TD+"text-align:center;font-weight:bold;width:13%'>TUTAR</th>"
+    +"<th style='"+TD+"text-align:center;font-weight:bold;width:11%'>G\u00dcN</th>"
+    +"<th style='"+TD+"text-align:center;font-weight:bold;width:10%'></th>"
+    +"<th style='"+TD+"text-align:center;font-weight:bold;width:10%'>KDV</th>"
+    +"<th style='"+TD+"text-align:center;font-weight:bold;width:24%'>TOPLAM</th>"
     +"</tr>"
     +rows
-    +"<tr>"
-    +"<td style='"+td+"font-size:9px'>TOPLAM</td>"
-    +"<td style='"+tc+"'></td>"
-    +"<td style='border:1px solid #000;padding:4px 6px;font-size:9px;font-weight:bold;text-align:center;color:red'>ADET</td>"
-    +"<td style='"+tc+"'></td>"
-    +"<td style='"+tc+"'></td>"
-    +"<td style='"+tr+"'>"+ard.toLocaleString("tr-TR")+" TL</td>"
-    +"</tr>"
-    +"<tr>"
-    +"<td style='"+td+"font-size:9px'>ARAÇ GİRİŞ ÇIKIŞ ÜCRETİ</td>"
-    +"<td style='"+tc+"'>240</td>"
-    +"<td style='border:1px solid #000;padding:4px 6px;font-size:11px;font-weight:bold;text-align:center;color:red'>"+(SG[p]?ad:0)+"</td>"
-    +"<td style='"+tr+"'>"+gu.toLocaleString("tr-TR")+"</td>"
-    +"<td style='"+tc+"'>0</td>"
-    +"<td style='"+tr+"'>"+gu.toLocaleString("tr-TR")+" TL</td>"
-    +"</tr>"
-    +"<tr>"
-    +"<td style='"+td+"font-size:9px'>YÜKLEME-BOŞALTMA</td>"
-    +"<td style='"+tc+"'>160</td>"
-    +"<td style='border:1px solid #000;padding:4px 6px;font-size:11px;font-weight:bold;text-align:center;color:red'>"+(SY[p]?ad:0)+"</td>"
-    +"<td style='"+tr+"'>"+yu.toLocaleString("tr-TR")+"</td>"
-    +"<td style='"+tc+"'>0</td>"
-    +"<td style='"+tr+"'>"+yu.toLocaleString("tr-TR")+" TL</td>"
-    +"</tr>"
-    +"<tr>"
-    +"<td style='"+td+"font-size:9px;color:red'>KDV</td>"
-    +"<td style='"+tc+"'></td>"
-    +"<td style='"+tc+"'></td>"
-    +"<td style='"+tc+"'></td>"
-    +"<td style='"+tc+"font-size:9px'>"+(kv>0?kv+",00%":"0,00%")+"</td>"
-    +"<td style='"+tr+"'>"+kdv.toLocaleString("tr-TR")+" TL</td>"
-    +"</tr>"
-    +"<tr>"
-    +"<td colspan='5' style='"+td+"font-size:11px;font-weight:bold'>TOPLAM</td>"
-    +"<td style='"+tr+"font-size:12px;font-weight:bold'>"+tot.toLocaleString("tr-TR")+" TL</td>"
-    +"</tr>"
+    +"<tr><td style='"+TDL+"font-size:8pt'>TOPLAM</td><td style='"+TDC+"'></td>"
+    +"<td style='"+TD+"text-align:center;color:red;font-weight:bold;font-size:8pt'>ADET</td>"
+    +"<td style='"+TDC+"'></td><td style='"+TDC+"'></td>"
+    +"<td style='"+TDBR+"'>"+ard.toLocaleString("tr-TR")+",00 TL</td></tr>"
+    +"<tr><td style='"+TDL+"font-size:8pt'>ARA\u00c7 G\u0130R\u0130\u015e \u00c7IKI\u015e \u00dcCRET\u0130</td>"
+    +"<td style='"+TDBC+"'>240</td>"
+    +"<td style='"+TD+"text-align:center;color:red;font-weight:bold'>"+(SG[p]?ad:0)+"</td>"
+    +"<td style='"+TDBR+"'>"+gu.toLocaleString("tr-TR")+"</td>"
+    +"<td style='"+TDC+"'>0</td>"
+    +"<td style='"+TDBR+"'>"+gu.toLocaleString("tr-TR")+",00 TL</td></tr>"
+    +"<tr><td style='"+TDL+"font-size:8pt'>Y\u00dcKLEME-BO\u015eALTMA</td>"
+    +"<td style='"+TDBC+"'>160</td>"
+    +"<td style='"+TD+"text-align:center;color:red;font-weight:bold'>"+(SY[p]?ad:0)+"</td>"
+    +"<td style='"+TDBR+"'>"+yu.toLocaleString("tr-TR")+"</td>"
+    +"<td style='"+TDC+"'>0</td>"
+    +"<td style='"+TDBR+"'>"+yu.toLocaleString("tr-TR")+",00 TL</td></tr>"
+    +"<tr><td style='"+TDL+"color:red;font-size:8pt'>KDV</td>"
+    +"<td style='"+TDC+"'></td><td style='"+TDC+"'></td><td style='"+TDC+"'></td>"
+    +"<td style='"+TDC+"font-size:8pt'>"+(kv>0?kv+",00%":"0,00%")+"</td>"
+    +"<td style='"+TDBR+"'>"+kdv.toLocaleString("tr-TR")+",00 TL</td></tr>"
+    +"<tr><td colspan='5' style='"+TDB+"'>TOPLAM</td>"
+    +"<td style='"+TDBR+"'>"+tot.toLocaleString("tr-TR")+",00 TL</td></tr>"
     +"</table>"
-
-    /* İMZA ALANI */
-    +"<table style='width:100%;border-collapse:collapse;margin-top:18px'>"
+    +"<table style='width:100%;border-collapse:collapse;margin-top:24px'>"
     +"<tr>"
-    +"<td style='width:34%;text-align:center;padding:0 6px;border:none;vertical-align:bottom'>"
-    +"<div style='border-top:1px solid #000;padding-top:4px;font-size:9px;font-weight:bold'>DÜZENLEYEN</div>"
+    +"<td style='width:38%;border:none;text-align:center;padding:0 8px;vertical-align:bottom'>"
+    +(dz||du?"<div style='font-size:9pt;font-family:\'Times New Roman\',Times,serif'>"+(dz||"")+"</div>"
+    +"<div style='font-size:8pt;color:#333'>"+(du||"")+"</div>":"<div style='height:40px'></div>")
+    +"<div style='border-top:1px solid #000;margin-top:4px;padding-top:4px;font-size:8pt;font-weight:bold'>D\u00dcZENLEYEN</div>"
     +"</td>"
-    +"<td style='width:4%;border:none'></td>"
-    +"<td style='width:34%;text-align:center;padding:0 6px;border:none;vertical-align:bottom'>"
-    +"<div style='border-top:1px solid #000;padding-top:4px;font-size:9px;font-weight:bold'>TAH SİLATI YAPAN</div>"
+    +"<td style='width:5%;border:none'></td>"
+    +"<td style='width:38%;border:none;text-align:center;padding:0 8px;vertical-align:bottom'>"
+    +(tz||tu?"<div style='font-size:9pt;font-family:\'Times New Roman\',Times,serif'>"+(tz||"")+"</div>"
+    +"<div style='font-size:8pt;color:#333'>"+(tu||"")+"</div>":"<div style='height:40px'></div>")
+    +"<div style='border-top:1px solid #000;margin-top:4px;padding-top:4px;font-size:8pt;font-weight:bold'>TAH S\u0130LATI YAPAN</div>"
     +"</td>"
-    +"<td style='width:4%;border:none'></td>"
-    +"<td style='width:24%;text-align:center;padding:0 6px;border:none;vertical-align:bottom'>"
-    +"<div style='border-top:1px solid #000;padding-top:4px;font-size:9px;font-weight:bold'>ALINDI NO:</div>"
+    +"<td style='width:5%;border:none'></td>"
+    +"<td style='width:14%;border:none;text-align:center;padding:0 4px;vertical-align:bottom'>"
+    +"<div style='height:40px'></div>"
+    +"<div style='border-top:1px solid #000;margin-top:4px;padding-top:4px;font-size:8pt;font-weight:bold'>ALINDI NO:</div>"
     +"</td>"
-    +"</tr>"
-    +"<tr>"
-    +"<td style='text-align:center;padding:3px 6px;border:none;font-size:10px;font-weight:bold'>"+(dz||"")+"</td>"
-    +"<td style='border:none'></td>"
-    +"<td style='text-align:center;padding:3px 6px;border:none;font-size:10px;font-weight:bold'>"+(tz||"")+"</td>"
-    +"<td style='border:none'></td>"
-    +"<td style='text-align:center;padding:3px 6px;border:none'></td>"
-    +"</tr>"
-    +"<tr>"
-    +"<td style='text-align:center;padding:2px 6px;border:none;font-size:9px'>"+(du||"")+"</td>"
-    +"<td style='border:none'></td>"
-    +"<td style='text-align:center;padding:2px 6px;border:none;font-size:9px'>"+(tu||"")+"</td>"
-    +"<td style='border:none'></td>"
-    +"<td style='text-align:center;padding:2px 6px;border:none;font-size:9px'>"+FD(ci)+"</td>"
     +"</tr>"
     +"</table>";
 
@@ -455,51 +400,55 @@ function yazdir(p){
 }
 function kapat(){G("pov").className="";document.body.style.overflow="";}
 
-function pdfKaydet(){
-  /* iOS Safari: window.open yerine gizli iframe ile print */
-  var node = printDoc(CUR);
-  var css = "*{box-sizing:border-box}"
-    + "body{font-family:Arial,sans-serif;margin:0;padding:8mm;color:#000;-webkit-print-color-adjust:exact}"
-    + "table{border-collapse:collapse;width:100%}"
-    + "@page{size:A4 portrait;margin:8mm}"
-    + "@media print{body{padding:6mm}}";
-
-  /* Eski iframe varsa sil */
-  var old = document.getElementById("_pif");
-  if(old) old.parentNode.removeChild(old);
-
-  var iframe = document.createElement("iframe");
-  iframe.id = "_pif";
-  iframe.style.cssText = "position:fixed;top:-9999px;left:-9999px;width:210mm;height:297mm;border:none;";
+function pdfYazdir(){
+  var node=printDoc(CUR);
+  var old=document.getElementById("_pif");
+  if(old)old.parentNode.removeChild(old);
+  var iframe=document.createElement("iframe");
+  iframe.id="_pif";
+  iframe.style.cssText="position:fixed;top:-9999px;left:-9999px;width:210mm;height:297mm;border:none;";
   document.body.appendChild(iframe);
-
-  var idoc = iframe.contentDocument || iframe.contentWindow.document;
+  var idoc=iframe.contentDocument||iframe.contentWindow.document;
   idoc.open();
-  idoc.write("<!DOCTYPE html><html><head><meta charset='UTF-8'><style>" + css + "<\/style><\/head><body><\/body><\/html>");
+  idoc.write("<!DOCTYPE html><html><head><meta charset='UTF-8'><style>"
+    +"*{box-sizing:border-box}body{font-family:'Times New Roman',Times,serif;margin:0;padding:8mm;color:#000}"
+    +"table{border-collapse:collapse;width:100%}"
+    +"@page{size:A4 portrait;margin:8mm}"
+    +"@media print{body{padding:6mm}}"
+    +"<\/style><\/head><body><\/body><\/html>");
   idoc.close();
   idoc.body.appendChild(node.cloneNode(true));
-
   setTimeout(function(){
-    try {
-      iframe.contentWindow.focus();
-      iframe.contentWindow.print();
-    } catch(e) {
-      /* Fallback: window.print ile overlay'i yazdır */
-      G("pov").className = "on";
-      document.body.style.overflow = "hidden";
-      window.print();
-    }
-  }, 600);
+    try{iframe.contentWindow.focus();iframe.contentWindow.print();}
+    catch(e){G("pov").className="on";document.body.style.overflow="hidden";window.print();}
+  },600);
 }
 
-/* OLAY DİNLEYİCİLERİ */
-window.addEventListener("load", function(){
+function pdfGonder(){
+  var node=printDoc(CUR);
+  var html="<!DOCTYPE html><html><head><meta charset='UTF-8'><style>"
+    +"*{box-sizing:border-box}body{font-family:'Times New Roman',Times,serif;margin:0;padding:8mm;color:#000}"
+    +"table{border-collapse:collapse;width:100%}"
+    +"<\/style><\/head><body>"+node.outerHTML+"<\/body><\/html>";
+  var blob=new Blob([html],{type:"text/html;charset=utf-8"});
+  var url=URL.createObjectURL(blob);
+  var a=document.createElement("a");
+  a.href=url;
+  a.download="Ardiye_Hesap_Tablosu.html";
+  a.style.display="none";
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  setTimeout(function(){URL.revokeObjectURL(url);},3000);
+}
+
+window.addEventListener("load",function(){
   G("t0").onclick=function(){sekme(0);};
   G("t1").onclick=function(){sekme(1);};
   G("t2").onclick=function(){sekme(2);};
-  G("bPDF").onclick=pdfKaydet;
+  G("bPDF").onclick=pdfYazdir;
+  G("bShare").onclick=pdfGonder;
   G("bKapat").onclick=kapat;
-
   for(var _i=0;_i<3;_i++){
     (function(p){
       G("hb"+p).onclick=function(){hesapla(p);};
@@ -516,7 +465,6 @@ window.addEventListener("load", function(){
       G("pr"+p).onclick=function(){yazdir(p);};
     })(_i);
   }
-
   var bugun=new Date().toISOString().split("T")[0];
   for(var _j=0;_j<3;_j++)G("ci"+_j).value=bugun;
 });
