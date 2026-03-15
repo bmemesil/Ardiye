@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="tr">
 <head>
 <meta charset="UTF-8">
@@ -121,11 +120,11 @@ input[type=date]{color-scheme:dark}
 </div>
 <div class="card"><div class="ct">İmza Bilgileri</div>
 <div class="f2">
-  <div class="f"><label>Düzeyleyen Ad Soyad</label><input class="fi" type="text" id="dz0" placeholder="Ad Soyad..."></div>
+  <div class="f"><label>Düzeyleyen Ad Soyad</label><input class="fi" type="text" id="dz0" placeholder="Ad Soyad..." value="Ali Yükel"></div>
   <div class="f"><label>Düzeyleyen Unvan</label><input class="fi" type="text" id="du0" placeholder="Ambar Memuru..."></div>
 </div>
 <div class="f2">
-  <div class="f"><label>Tahsilatı Yapan Ad Soyad</label><input class="fi" type="text" id="tz0" placeholder="Ad Soyad..."></div>
+  <div class="f"><label>Tahsilatı Yapan Ad Soyad</label><input class="fi" type="text" id="tz0" placeholder="Ad Soyad..." value="Damla Koç"></div>
   <div class="f"><label>Tahsilatı Yapan Unvan</label><input class="fi" type="text" id="tu0" placeholder="Satış Memuru..."></div>
 </div>
 </div>
@@ -166,11 +165,11 @@ input[type=date]{color-scheme:dark}
 </div>
 <div class="card"><div class="ct">İmza Bilgileri</div>
 <div class="f2">
-  <div class="f"><label>Düzeyleyen Ad Soyad</label><input class="fi" type="text" id="dz1" placeholder="Ad Soyad..."></div>
+  <div class="f"><label>Düzeyleyen Ad Soyad</label><input class="fi" type="text" id="dz1" placeholder="Ad Soyad..." value="Ali Yükel"></div>
   <div class="f"><label>Düzeyleyen Unvan</label><input class="fi" type="text" id="du1" placeholder="Ambar Memuru..."></div>
 </div>
 <div class="f2">
-  <div class="f"><label>Tahsilatı Yapan Ad Soyad</label><input class="fi" type="text" id="tz1" placeholder="Ad Soyad..."></div>
+  <div class="f"><label>Tahsilatı Yapan Ad Soyad</label><input class="fi" type="text" id="tz1" placeholder="Ad Soyad..." value="Damla Koç"></div>
   <div class="f"><label>Tahsilatı Yapan Unvan</label><input class="fi" type="text" id="tu1" placeholder="Satış Memuru..."></div>
 </div>
 </div>
@@ -211,11 +210,11 @@ input[type=date]{color-scheme:dark}
 </div>
 <div class="card"><div class="ct">İmza Bilgileri</div>
 <div class="f2">
-  <div class="f"><label>Düzeyleyen Ad Soyad</label><input class="fi" type="text" id="dz2" placeholder="Ad Soyad..."></div>
+  <div class="f"><label>Düzeyleyen Ad Soyad</label><input class="fi" type="text" id="dz2" placeholder="Ad Soyad..." value="Ali Yükel"></div>
   <div class="f"><label>Düzeyleyen Unvan</label><input class="fi" type="text" id="du2" placeholder="Ambar Memuru..."></div>
 </div>
 <div class="f2">
-  <div class="f"><label>Tahsilatı Yapan Ad Soyad</label><input class="fi" type="text" id="tz2" placeholder="Ad Soyad..."></div>
+  <div class="f"><label>Tahsilatı Yapan Ad Soyad</label><input class="fi" type="text" id="tz2" placeholder="Ad Soyad..." value="Damla Koç"></div>
   <div class="f"><label>Tahsilatı Yapan Unvan</label><input class="fi" type="text" id="tu2" placeholder="Satış Memuru..."></div>
 </div>
 </div>
@@ -365,23 +364,24 @@ function printDoc(p){
     +"<tr><td colspan='5' style='"+TDB+"'>TOPLAM</td>"
     +"<td style='"+TDBR+"'>"+tot.toLocaleString("tr-TR")+",00 TL</td></tr>"
     +"</table>"
-    +"<table style='width:100%;border-collapse:collapse;margin-top:24px'>"
+    +"<table style='width:100%;border-collapse:collapse;margin-top:20px'>"
     +"<tr>"
-    +"<td style='width:38%;border:none;text-align:center;padding:0 8px;vertical-align:bottom'>"
-    +(dz||du?"<div style='font-size:9pt;font-family:\'Times New Roman\',Times,serif'>"+(dz||"")+"</div>"
-    +"<div style='font-size:8pt;color:#333'>"+(du||"")+"</div>":"<div style='height:40px'></div>")
-    +"<div style='border-top:1px solid #000;margin-top:4px;padding-top:4px;font-size:8pt;font-weight:bold'>D\u00dcZENLEYEN</div>"
+    +"<td style='width:38%;border:none;text-align:center;padding:4px 8px'>"
+    +"<div style='font-size:8pt;font-weight:bold;font-family:\'Times New Roman\',Times,serif'>D\u00dcZENLEYEN</div>"
+    +"<div style='font-size:9pt;font-family:\'Times New Roman\',Times,serif;margin-top:3px'>"+(dz||"")+"</div>"
+    +"<div style='font-size:8pt;color:#333;font-family:\'Times New Roman\',Times,serif'>"+(du||"")+"</div>"
+    +"<div style='font-size:8pt;font-family:\'Times New Roman\',Times,serif;margin-top:2px'>"+FD(ci)+"</div>"
     +"</td>"
     +"<td style='width:5%;border:none'></td>"
-    +"<td style='width:38%;border:none;text-align:center;padding:0 8px;vertical-align:bottom'>"
-    +(tz||tu?"<div style='font-size:9pt;font-family:\'Times New Roman\',Times,serif'>"+(tz||"")+"</div>"
-    +"<div style='font-size:8pt;color:#333'>"+(tu||"")+"</div>":"<div style='height:40px'></div>")
-    +"<div style='border-top:1px solid #000;margin-top:4px;padding-top:4px;font-size:8pt;font-weight:bold'>TAH S\u0130LATI YAPAN</div>"
+    +"<td style='width:38%;border:none;text-align:center;padding:4px 8px'>"
+    +"<div style='font-size:8pt;font-weight:bold;font-family:\'Times New Roman\',Times,serif'>TAH S\u0130LATI YAPAN</div>"
+    +"<div style='font-size:9pt;font-family:\'Times New Roman\',Times,serif;margin-top:3px'>"+(tz||"")+"</div>"
+    +"<div style='font-size:8pt;color:#333;font-family:\'Times New Roman\',Times,serif'>"+(tu||"")+"</div>"
+    +"<div style='font-size:8pt;font-family:\'Times New Roman\',Times,serif;margin-top:2px'>"+FD(ci)+"</div>"
     +"</td>"
     +"<td style='width:5%;border:none'></td>"
-    +"<td style='width:14%;border:none;text-align:center;padding:0 4px;vertical-align:bottom'>"
-    +"<div style='height:40px'></div>"
-    +"<div style='border-top:1px solid #000;margin-top:4px;padding-top:4px;font-size:8pt;font-weight:bold'>ALINDI NO:</div>"
+    +"<td style='width:14%;border:none;text-align:center;padding:4px 4px'>"
+    +"<div style='font-size:8pt;font-weight:bold;font-family:\'Times New Roman\',Times,serif'>ALINDI NO:</div>"
     +"</td>"
     +"</tr>"
     +"</table>";
@@ -469,6 +469,5 @@ window.addEventListener("load",function(){
   for(var _j=0;_j<3;_j++)G("ci"+_j).value=bugun;
 });
 </script>
-
 </body>
 </html>
