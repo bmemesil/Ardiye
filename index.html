@@ -176,6 +176,7 @@ input[type=date]{color-scheme:light}
   <div class="tab on" id="t0">🏗 Açık Ardiye</div>
   <div class="tab" id="t1">🏭 3 Ton Üzeri</div>
   <div class="tab" id="t2">🏠 Kapalı Ardiye</div>
+  <div class="tab" id="t3">🧳 Yolcu</div>
 </div>
 
 <div class="pg on" id="pg0"><div class="wrap">
@@ -257,6 +258,7 @@ input[type=date]{color-scheme:light}
 
 <div class="brow">
   <button class="btn bpr" id="pr0">🖨 &nbsp;Yazdır / PDF Al</button>
+  <button class="btn bpr" id="gs0" style="background:#0f766e;border-color:#0f766e">📊 &nbsp;Portal Şablonu (Excel+PDF)</button>
 </div>
 
 </div></div>
@@ -340,6 +342,7 @@ input[type=date]{color-scheme:light}
 
 <div class="brow">
   <button class="btn bpr" id="pr1">🖨 &nbsp;Yazdır / PDF Al</button>
+  <button class="btn bpr" id="gs1" style="background:#0f766e;border-color:#0f766e">📊 &nbsp;Portal Şablonu (Excel+PDF)</button>
 </div>
 
 </div></div>
@@ -423,6 +426,91 @@ input[type=date]{color-scheme:light}
 
 <div class="brow">
   <button class="btn bpr" id="pr2">🖨 &nbsp;Yazdır / PDF Al</button>
+  <button class="btn bpr" id="gs2" style="background:#0f766e;border-color:#0f766e">📊 &nbsp;Portal Şablonu (Excel+PDF)</button>
+</div>
+
+</div></div>
+
+<div class="pg" id="pg3"><div class="wrap">
+
+<div class="sec">Tarih & Araç</div>
+<div class="card">
+  <div class="f"><label>Giriş Tarihi</label><input class="fi" type="date" id="gi3"></div>
+  <div class="f"><label>Çıkış Tarihi</label><input class="fi" type="date" id="ci3"></div>
+  <div class="gunbox">
+    <div class="gun-icon">📅</div>
+    <div>
+      <div class="gun-lbl">Toplam Gün (giriş dahil)</div>
+      <div class="gunval" id="gn3">0</div>
+    </div>
+  </div>
+  <div class="f2">
+    <div class="f"><label>Araç Adedi</label><input class="fi" type="number" id="ad3" value="1" min="1"></div>
+    <div class="f"><label>KDV %</label><input class="fi" type="number" id="kv3" value="0" min="0" max="100"></div>
+  </div>
+  <button class="hbtn" id="hb3">⟳ &nbsp;HESAPLA</button>
+</div>
+
+<div class="sec">Müşteri</div>
+<div class="card">
+  <div class="f"><label>Beyanname / Şase / Takrir No</label><input class="fi" type="text" id="bn3" placeholder="No giriniz..."></div>
+  <div class="f"><label>İthalatçı Firma / Ad Soyad</label><input class="fi" type="text" id="fi3" placeholder="Firma adı..."></div>
+  <div class="f"><label>TC / Vergi No</label><input class="fi" type="text" id="vn3" placeholder="Vergi no..."></div>
+</div>
+
+<div class="sec">Ardiye Tarifeleri — KAPALI ARDİYE</div>
+<div class="card">
+  <div id="r3"><div style="color:var(--muted);font-size:13px;text-align:center;padding:16px 0">Tarih girin ve Hesapla'ya basın</div></div>
+</div>
+
+<div class="sec">Ek Hizmetler</div>
+<div class="card">
+  <div class="sr">
+    <div>
+      <div class="sr-name">Araç Giriş / Çıkış</div>
+      <div class="sr-price">366 ₺ / araç</div>
+    </div>
+    <div class="sr-right">
+      <span class="sr-val" id="gu3">0 ₺</span>
+      <div class="chk" id="gc3"></div>
+    </div>
+  </div>
+  <div class="sr">
+    <div>
+      <div class="sr-name">Yükleme / Boşaltma</div>
+      <div class="sr-price">240 ₺ / araç</div>
+    </div>
+    <div class="sr-right">
+      <span class="sr-val" id="yu3">0 ₺</span>
+      <div class="chk" id="yc3"></div>
+    </div>
+  </div>
+</div>
+
+<div class="sec">İmza Bilgileri</div>
+<div class="imza-card">
+  <div class="f2">
+    <div class="f"><label>Düzenleyen Ad Soyad</label><input class="fi" type="text" id="dz3" value="Ali Yüksel"></div>
+    <div class="f"><label>Düzenleyen Unvan</label><input class="fi" type="text" id="du3" value="Ambar Memuru"></div>
+  </div>
+  <div class="f2">
+    <div class="f"><label>Tahsilat Yapan Ad Soyad</label><input class="fi" type="text" id="tz3" value="Damla Koç"></div>
+    <div class="f"><label>Tahsilat Yapan Unvan</label><input class="fi" type="text" id="tu3" value="Satış Memuru"></div>
+  </div>
+</div>
+
+<div class="rc" id="rc3">
+  <div class="rc-title">💰 Hesaplama Sonucu</div>
+  <div id="bd3"><div style="color:var(--muted);font-size:13px;text-align:center;padding:8px 0">Henüz hesaplanmadı</div></div>
+  <div class="rtot">
+    <div class="rtot-lbl">Genel Toplam</div>
+    <div class="rtot-v" id="tt3">— ₺</div>
+  </div>
+</div>
+
+<div class="brow">
+  <button class="btn bpr" id="pr3">🖨 &nbsp;Yazdır / PDF Al</button>
+  <button class="btn bpr" id="gs3" style="background:#0f766e;border-color:#0f766e">📊 &nbsp;Portal Şablonu (Excel+PDF)</button>
 </div>
 
 </div></div>
@@ -432,9 +520,25 @@ var LG="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMgAAADICAIAAAAiOjnJAAAAAX
 var TF=[
   [{l:"1-20 Gün",d:145,f:1,t:20},{l:"21-50 Gün",d:725,f:21,t:50},{l:"51-80 Gün",d:1160,f:51,t:80},{l:"81+ Gün",d:1450,f:81,t:99999}],
   [{l:"1-20 Gün",d:600,f:1,t:20},{l:"21-50 Gün",d:3000,f:21,t:50},{l:"51-80 Gün",d:4800,f:51,t:80},{l:"81+ Gün",d:6000,f:81,t:99999}],
-  [{l:"1-20 Gün",d:180,f:1,t:20},{l:"21-50 Gün",d:900,f:21,t:50},{l:"51-80 Gün",d:1480,f:51,t:80},{l:"81+ Gün",d:1800,f:81,t:99999}]
+  [{l:"1-20 Gün",d:180,f:1,t:20},{l:"21-50 Gün",d:900,f:21,t:50},{l:"51-80 Gün",d:1480,f:51,t:80},{l:"81+ Gün",d:1800,f:81,t:99999}],
+  // Yolcu: tek fiyat — dört bandın da günlük ücreti aynı (174 ₺), toplam = gün × 174
+  [{l:"1-20 Gün",d:174,f:1,t:20},{l:"21-50 Gün",d:174,f:21,t:50},{l:"51-80 Gün",d:174,f:51,t:80},{l:"81+ Gün",d:174,f:81,t:99999}]
 ];
-var SG=[0,0,0],SY=[0,0,0],CUR=0;
+var SG=[0,0,0,0],SY=[0,0,0,0],CUR=0;
+
+// Sekme başlıkları — hem yerel yazdırmada hem portal şablonunda kullanılır
+var BASLIKLAR=[
+  "ARDİYE ÜCRETİ HESAPLAMA TABLOSU",
+  "3 TON ÜZERİ ARDİYE ÜCRETİ HESAPLAMA TABLOSU",
+  "KAPALI ALAN ARDİYE ÜCRETİ HESAPLAMA TABLOSU",
+  "YOLCU ARDİYE ÜCRETİ HESAPLAMA TABLOSU"
+];
+
+// Ek hizmet birim ücretleri (güncel)
+var UCRET_GIRIS=366, UCRET_YUKLEME=240;
+
+// Portal ile AYNI şablonu üreten Apps Script uç noktası
+var ARDIYE_GAS="https://script.google.com/macros/s/AKfycbx8h2iVWt7A2bY80edWL5qvrRVPfuQIdtl5hCMM3bvWwkWcJuhB5Gbtm3I-CYIdQzTjkg/exec";
 
 function G(id){return document.getElementById(id);}
 function nGun(a,b){if(!a||!b)return 0;var d=Math.round((new Date(b)-new Date(a))/86400000)+1;return d>0?d:0;}
@@ -442,7 +546,7 @@ function bantlar(n,tf){var r=[],rem=n;for(var i=0;i<tf.length;i++){var t=tf[i],b
 function FD(v){if(!v)return "";var p=v.split("-");return p[2]+"."+p[1]+"."+p[0];}
 function N(n){return n.toLocaleString("tr-TR");}
 
-function sekme(i){CUR=i;for(var j=0;j<3;j++){G("t"+j).className="tab"+(j===i?" on":"");G("pg"+j).className="pg"+(j===i?" on":"");}}
+function sekme(i){CUR=i;for(var j=0;j<4;j++){G("t"+j).className="tab"+(j===i?" on":"");G("pg"+j).className="pg"+(j===i?" on":"");}}
 
 function tikla(p,t){
   if(t==="g")SG[p]=SG[p]?0:1;else SY[p]=SY[p]?0:1;
@@ -499,7 +603,7 @@ function printDoc(p){
   var kdv=Math.round((ard+gu+yu)*kv/100),tot=ard+gu+yu+kdv;
   var bn=G("bn"+p).value,fi=G("fi"+p).value,vn=G("vn"+p).value;
   var dz=G("dz"+p).value,du=G("du"+p).value,tz=G("tz"+p).value,tu=G("tu"+p).value;
-  var baslik=["ARDİYE ÜCRETİ HESAPLAMA TABLOSU","ARDİYE ÜCRETİ HESAPLAMA TABLOSU","KAPALI ALAN ARDİYE ÜCRETİ HESAPLAMA TABLOSU"][p];
+  var baslik=BASLIKLAR[p];
   var BANLAR=["1-20 Gün","21-50 Gün","51-80 Gün","81 gün ve sonrası"];
   var TD="border:1px solid #000;padding:4px 6px;font-size:9pt;font-family:'Times New Roman',Times,serif;vertical-align:middle;";
   var ETK=TD+"font-weight:bold;font-size:8pt;background:#f0f0f0;text-align:left;";
@@ -576,6 +680,59 @@ function printDoc(p){
   return wrap;
 }
 
+// ══ PORTAL ŞABLONUNDAN EXCEL + PDF ══════════════════════════════════
+// Portalın kullandığı Google Sheets şablonunun aynısını doldurur.
+// Tarife/başlık/ek ücret/KDV parametre olarak gider; parametre göndermeyen
+// portal tarafı etkilenmez.
+function gasUret(p){
+  var gi=G("gi"+p).value, ci=G("ci"+p).value;
+  if(!gi||!ci){ alert("Giriş ve çıkış tarihini girin."); return; }
+  var ad=parseInt(G("ad"+p).value)||1, kv=parseFloat(G("kv"+p).value)||0;
+  var tf=TF[p];
+  var btn=G("gs"+p), eskiYazi=btn?btn.innerHTML:"";
+  if(btn){ btn.disabled=true; btn.innerHTML="⏳ &nbsp;Üretiliyor..."; }
+
+  var cbAdi="ardiyeCb_"+Date.now();
+  var temizle=function(){
+    if(btn){ btn.disabled=false; btn.innerHTML=eskiYazi; }
+    try{ delete window[cbAdi]; }catch(e){ window[cbAdi]=undefined; }
+    if(sc&&sc.parentNode) sc.parentNode.removeChild(sc);
+  };
+  window[cbAdi]=function(res){
+    temizle();
+    if(res&&res.success){
+      if(res.pdfUrl&&res.pdfUrl.indexOf("HATA:")!==0) window.open(res.pdfUrl,"_blank");
+      else if(res.excelUrl) window.open(res.excelUrl,"_blank");
+    } else {
+      alert("Üretilemedi: "+((res&&res.error)||"bilinmeyen hata"));
+    }
+  };
+
+  var q="?action=create"
+    +"&firma="+encodeURIComponent(G("fi"+p).value||"")
+    +"&beyanname="+encodeURIComponent(G("bn"+p).value||"")
+    +"&sasi="+encodeURIComponent(G("bn"+p).value||"")
+    +"&vergiNo="+encodeURIComponent(G("vn"+p).value||"")
+    +"&girisTarihi="+encodeURIComponent(FD(gi))
+    +"&cikisTarihi="+encodeURIComponent(FD(ci))
+    +"&adet="+encodeURIComponent(ad)
+    +"&baslik="+encodeURIComponent(BASLIKLAR[p])
+    +"&tarife1="+tf[0].d+"&tarife2="+tf[1].d+"&tarife3="+tf[2].d+"&tarife4="+tf[3].d
+    +"&ucretGiris="+UCRET_GIRIS+"&girisAdet="+(SG[p]?ad:0)
+    +"&ucretYukleme="+UCRET_YUKLEME+"&yuklemeAdet="+(SY[p]?ad:0)
+    +"&kdv="+kv
+    +"&duzenleyen="+encodeURIComponent(G("dz"+p).value||"")
+    +"&duzenleyenUnvan="+encodeURIComponent(G("du"+p).value||"")
+    +"&tahsilat="+encodeURIComponent(G("tz"+p).value||"")
+    +"&tahsilatUnvan="+encodeURIComponent(G("tu"+p).value||"")
+    +"&callback="+cbAdi;
+
+  var sc=document.createElement("script");
+  sc.src=ARDIYE_GAS+q;
+  sc.onerror=function(){ temizle(); alert("Bağlantı hatası — internet gerekiyor."); };
+  document.body.appendChild(sc);
+}
+
 function yazdir(p){CUR=p;var el=G("pdoc");el.innerHTML="";el.appendChild(printDoc(p));G("pov").className="on";document.body.style.overflow="hidden";G("pov").scrollTop=0;}
 function kapat(){G("pov").className="";document.body.style.overflow="";}
 
@@ -610,10 +767,11 @@ window.addEventListener("load",function(){
   G("t0").onclick=function(){sekme(0);};
   G("t1").onclick=function(){sekme(1);};
   G("t2").onclick=function(){sekme(2);};
+  G("t3").onclick=function(){sekme(3);};
   G("bPDF").onclick=pdfYazdir;
   G("bShare").onclick=pdfGonder;
   G("bKapat").onclick=kapat;
-  for(var _i=0;_i<3;_i++){
+  for(var _i=0;_i<4;_i++){
     (function(p){
       G("hb"+p).onclick=function(){hesapla(p,true);};
       G("gi"+p).onchange=function(){hesapla(p);};
@@ -627,10 +785,11 @@ window.addEventListener("load",function(){
       G("gc"+p).onclick=function(){tikla(p,"g");};
       G("yc"+p).onclick=function(){tikla(p,"y");};
       G("pr"+p).onclick=function(){yazdir(p);};
+      G("gs"+p).onclick=function(){gasUret(p);};
     })(_i);
   }
   var bugun=new Date().toISOString().split("T")[0];
-  for(var _j=0;_j<3;_j++)G("ci"+_j).value=bugun;
+  for(var _j=0;_j<4;_j++)G("ci"+_j).value=bugun;
 });
 </script>
 </body>
