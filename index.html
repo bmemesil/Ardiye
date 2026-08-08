@@ -257,7 +257,6 @@ input[type=date]{color-scheme:light}
 </div>
 
 <div class="brow">
-  <button class="btn bpr" id="pr0">🖨 &nbsp;Yazdır / PDF Al</button>
   <button class="btn bpr" id="gs0" style="background:#0f766e;border-color:#0f766e">📊 &nbsp;Portal Şablonu (Excel+PDF)</button>
 </div>
 
@@ -341,7 +340,6 @@ input[type=date]{color-scheme:light}
 </div>
 
 <div class="brow">
-  <button class="btn bpr" id="pr1">🖨 &nbsp;Yazdır / PDF Al</button>
   <button class="btn bpr" id="gs1" style="background:#0f766e;border-color:#0f766e">📊 &nbsp;Portal Şablonu (Excel+PDF)</button>
 </div>
 
@@ -425,7 +423,6 @@ input[type=date]{color-scheme:light}
 </div>
 
 <div class="brow">
-  <button class="btn bpr" id="pr2">🖨 &nbsp;Yazdır / PDF Al</button>
   <button class="btn bpr" id="gs2" style="background:#0f766e;border-color:#0f766e">📊 &nbsp;Portal Şablonu (Excel+PDF)</button>
 </div>
 
@@ -509,7 +506,6 @@ input[type=date]{color-scheme:light}
 </div>
 
 <div class="brow">
-  <button class="btn bpr" id="pr3">🖨 &nbsp;Yazdır / PDF Al</button>
   <button class="btn bpr" id="gs3" style="background:#0f766e;border-color:#0f766e">📊 &nbsp;Portal Şablonu (Excel+PDF)</button>
 </div>
 
@@ -733,6 +729,9 @@ function gasUret(p){
   document.body.appendChild(sc);
 }
 
+// NOT: Yerel yazdirma (yazdir/pdfYazdir/pdfGonder/printDoc) arayuzden
+// kaldirildi; cikti artik portal sablonundan uretiliyor. Kod, geri
+// donulmek istenirse diye korundu.
 function yazdir(p){CUR=p;var el=G("pdoc");el.innerHTML="";el.appendChild(printDoc(p));G("pov").className="on";document.body.style.overflow="hidden";G("pov").scrollTop=0;}
 function kapat(){G("pov").className="";document.body.style.overflow="";}
 
@@ -784,7 +783,6 @@ window.addEventListener("load",function(){
       G("kv"+p).oninput=function(){hesapla(p);};
       G("gc"+p).onclick=function(){tikla(p,"g");};
       G("yc"+p).onclick=function(){tikla(p,"y");};
-      G("pr"+p).onclick=function(){yazdir(p);};
       G("gs"+p).onclick=function(){gasUret(p);};
     })(_i);
   }
