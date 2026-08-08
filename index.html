@@ -142,7 +142,31 @@ input[type=date]{color-scheme:light}
 .pt-c{background:#f1f5f9;color:var(--text2);border:1px solid var(--border)}
 #pdoc{background:#fff;color:#111;margin:14px;border-radius:12px;padding:16px;font-family:'Times New Roman',Times,serif;box-shadow:var(--shadow-md)}
 
+.tg-ac{background:none;border:none;color:#fff;font-size:19px;cursor:pointer;padding:4px 8px;opacity:.85}
+.tg-ac:hover{opacity:1}
+.tg-ov{position:fixed;inset:0;background:rgba(15,23,42,.55);backdrop-filter:blur(3px);z-index:9998;display:none;overflow-y:auto;padding:18px}
+.tg-ov.on{display:block}
+.tg-box{background:#fff;border-radius:20px;max-width:560px;margin:24px auto;padding:22px;box-shadow:0 24px 64px rgba(0,0,0,.35)}
+.tg-t{font-size:15px;font-weight:800;color:#312e81;margin-bottom:4px}
+.tg-alt{font-size:11px;color:#64748b;margin-bottom:16px;line-height:1.5}
+.tg-tbl{width:100%;border-collapse:collapse;margin-bottom:14px}
+.tg-tbl th{font-size:9px;color:#64748b;font-weight:700;text-transform:uppercase;letter-spacing:.6px;padding:4px 3px;text-align:center}
+.tg-tbl td{padding:3px}
+.tg-tbl td.tg-ad{font-size:11px;font-weight:700;color:#334155;text-align:left;white-space:nowrap;padding-right:6px}
+.tg-in{width:100%;background:#f8faff;border:1.5px solid #e2e8f0;border-radius:9px;padding:9px 6px;font-size:13px;text-align:center;font-weight:600;color:#0f172a}
+.tg-in:focus{border-color:#6366f1;outline:none;background:#fff}
+.tg-sat{display:flex;gap:10px;margin-bottom:14px}
+.tg-sat>div{flex:1}
+.tg-lbl{font-size:9px;color:#64748b;font-weight:700;text-transform:uppercase;letter-spacing:.6px;margin-bottom:5px}
+.tg-btnrow{display:flex;gap:9px;margin-top:6px}
+.tg-btn{flex:1;border:none;border-radius:12px;padding:14px;font-size:13px;font-weight:800;cursor:pointer}
+.tg-kaydet{background:linear-gradient(135deg,#4338ca,#6366f1);color:#fff}
+.tg-kapat{background:#e2e8f0;color:#334155}
+.tg-not{font-size:11px;padding:10px 12px;border-radius:10px;margin-bottom:12px;display:none}
+.tg-not.ok{display:block;background:#ecfdf5;color:#065f46;border:1px solid #a7f3d0}
+.tg-not.hata{display:block;background:#fef2f2;color:#991b1b;border:1px solid #fecaca}
 @media print{
+  .tg-ac,.tg-ov{display:none !important}
   body>*:not(#pov){display:none!important}
   #pov{display:block!important;position:static!important;background:white!important;overflow:visible!important}
   #ptbar{display:none!important}
@@ -168,6 +192,37 @@ input[type=date]{color-scheme:light}
       <div class="hdr-t">Ardiye Hesap</div>
       <div class="hdr-s">T.C. Ticaret Bakanlığı</div>
       <div class="badge">Çevrimdışı Çalışır</div>
+    </div>
+    <button class="tg-ac" id="tgAc" title="Tarife Ayarları">⚙</button>
+  </div>
+</div>
+
+<div class="tg-ov" id="tgOv">
+  <div class="tg-box">
+    <div class="tg-t">⚙ Tarife Ayarları</div>
+    <div class="tg-alt">Bakanlık fiyatları güncellediğinde buradan girin. Kaydettiğinizde hem bu program hem GümrükPortal yeni fiyatları kullanır. Hesaplamada <b>çıkış tarihinin yılına</b> ait tarife uygulanır.</div>
+    <div class="tg-not" id="tgNot"></div>
+    <div class="tg-sat">
+      <div><div class="tg-lbl">Geçerlilik Yılı</div><input class="tg-in" id="tgYil" type="number" min="2000" max="2100"></div>
+      <div><div class="tg-lbl">Kayıtlı Yıllar</div><select class="tg-in" id="tgYilListe"></select></div>
+    </div>
+    <table class="tg-tbl">
+      <tr><th></th><th>1-20 gün</th><th>21-50 gün</th><th>51-80 gün</th><th>81+ gün</th></tr>
+      <tr><td class="tg-ad">🏗 Açık</td><td><input class="tg-in" id="tgA0" type="number"></td><td><input class="tg-in" id="tgA1" type="number"></td><td><input class="tg-in" id="tgA2" type="number"></td><td><input class="tg-in" id="tgA3" type="number"></td></tr>
+      <tr><td class="tg-ad">🏭 3 Ton</td><td><input class="tg-in" id="tgB0" type="number"></td><td><input class="tg-in" id="tgB1" type="number"></td><td><input class="tg-in" id="tgB2" type="number"></td><td><input class="tg-in" id="tgB3" type="number"></td></tr>
+      <tr><td class="tg-ad">🏠 Kapalı</td><td><input class="tg-in" id="tgC0" type="number"></td><td><input class="tg-in" id="tgC1" type="number"></td><td><input class="tg-in" id="tgC2" type="number"></td><td><input class="tg-in" id="tgC3" type="number"></td></tr>
+      <tr><td class="tg-ad">🧳 Yolcu</td><td colspan="4"><input class="tg-in" id="tgY0" type="number" placeholder="Tek fiyat (₺/gün)"></td></tr>
+    </table>
+    <div class="tg-sat">
+      <div><div class="tg-lbl">Araç Giriş/Çıkış (₺)</div><input class="tg-in" id="tgGiris" type="number"></div>
+      <div><div class="tg-lbl">Yükleme/Boşaltma (₺)</div><input class="tg-in" id="tgYukleme" type="number"></div>
+    </div>
+    <div class="tg-sat">
+      <div><div class="tg-lbl">PIN</div><input class="tg-in" id="tgPin" type="password" autocomplete="off" placeholder="en az 4 hane"></div>
+    </div>
+    <div class="tg-btnrow">
+      <button class="tg-btn tg-kapat" id="tgKapat">Kapat</button>
+      <button class="tg-btn tg-kaydet" id="tgKaydet">KAYDET</button>
     </div>
   </div>
 </div>
@@ -522,6 +577,63 @@ var TF=[
 ];
 var SG=[0,0,0,0],SY=[0,0,0,0],CUR=0;
 
+// ══ TARİFE DEPOSU İSTEMCİSİ ═════════════════════════════════════════
+// Fiyatların tek kaynağı GAS tarafındaki depo. Açılışta çekilir,
+// localStorage'a yazılır; internet yoksa son bilinen fiyatla çalışılır.
+var TARIFELER = null;
+var TARIFE_YEDEK = { "2026": { acik:[145,725,1160,1450], ucTon:[600,3000,4800,6000],
+  kapali:[180,900,1480,1800], yolcu:[174,174,174,174], girisCikis:366, yukleme:240 } };
+
+function tarifeOnbellekOku(){
+  try{ var c=localStorage.getItem("ardiyeTarifeleri"); if(c) return JSON.parse(c); }catch(e){}
+  return null;
+}
+function tarifeYukle(bitince){
+  TARIFELER = tarifeOnbellekOku() || TARIFE_YEDEK;
+  if(bitince) bitince();
+  var cb="tarifeCb_"+Date.now(), sc;
+  var bitir=function(){ try{delete window[cb];}catch(e){window[cb]=undefined;} if(sc&&sc.parentNode)sc.parentNode.removeChild(sc); };
+  window[cb]=function(res){
+    if(res&&res.ok&&res.tarifeler){
+      TARIFELER=res.tarifeler;
+      try{ localStorage.setItem("ardiyeTarifeleri",JSON.stringify(TARIFELER)); }catch(e){}
+      if(bitince) bitince();
+    }
+    bitir();
+  };
+  sc=document.createElement("script");
+  sc.src=ARDIYE_GAS+"?action=tarifeGetir&callback="+cb;
+  sc.onerror=bitir;
+  document.body.appendChild(sc);
+}
+// Yürürlükteki tarife: tam eşleşme yoksa o yıldan ÖNCEKİ en yakın yıl
+function tarifeYilIcin(yil){
+  var t=TARIFELER||TARIFE_YEDEK;
+  var yillar=Object.keys(t).map(Number).filter(function(y){return !isNaN(y);}).sort(function(a,b){return a-b;});
+  if(!yillar.length) return null;
+  var sec=null;
+  yillar.forEach(function(y){ if(y<=yil) sec=y; });
+  if(sec===null) sec=yillar[0];
+  return t[String(sec)]||null;
+}
+// Sekmenin o yıldaki bant tarifesi
+function tarifeDizi(p,yil){
+  var t=tarifeYilIcin(yil)||{};
+  var d=t[["acik","ucTon","kapali","yolcu"][p]];
+  if(!d||d.length!==4) d=TF[p].map(function(x){return x.d;});
+  return [{l:"1-20 Gün",d:d[0],f:1,t:20},{l:"21-50 Gün",d:d[1],f:21,t:50},
+          {l:"51-80 Gün",d:d[2],f:51,t:80},{l:"81+ Gün",d:d[3],f:81,t:99999}];
+}
+function ekUcretler(yil){
+  var t=tarifeYilIcin(yil)||{};
+  return { giris:(t.girisCikis!=null?t.girisCikis:366), yukleme:(t.yukleme!=null?t.yukleme:240) };
+}
+// Hesapta ÇIKIŞ tarihinin yılı esas alınır
+function cikisYili(p){
+  var ci=G("ci"+p).value;
+  return ci ? parseInt(ci.slice(0,4)) : new Date().getFullYear();
+}
+
 // Sekme başlıkları — hem yerel yazdırmada hem portal şablonunda kullanılır
 var BASLIKLAR=[
   "ARDİYE ÜCRETİ HESAPLAMA TABLOSU",
@@ -558,7 +670,7 @@ function hesapla(p,scroll){
   var ad=parseInt(G("ad"+p).value)||1,kv=parseFloat(G("kv"+p).value)||0;
   var gun=nGun(gi,ci);
   G("gn"+p).textContent=gun;
-  var bs=bantlar(gun,TF[p]);
+  var bs=bantlar(gun,tarifeDizi(p,cikisYili(p)));
   var rh="";
   for(var i=0;i<bs.length;i++){
     var b=bs[i];
@@ -569,7 +681,8 @@ function hesapla(p,scroll){
   }
   G("r"+p).innerHTML=rh;
   var ard=0;for(var i=0;i<bs.length;i++)ard+=bs[i].s;ard*=ad;
-  var gu=SG[p]?366*ad:0,yu=SY[p]?240*ad:0;
+  var _eu=ekUcretler(cikisYili(p));
+  var gu=SG[p]?_eu.giris*ad:0,yu=SY[p]?_eu.yukleme*ad:0;
   var ara=ard+gu+yu,kdv=Math.round(ara*kv/100),tot=ara+kdv;
   G("gu"+p).textContent=N(gu)+" ₺";
   G("yu"+p).textContent=N(yu)+" ₺";
@@ -593,9 +706,10 @@ function hesapla(p,scroll){
 function printDoc(p){
   var gi=G("gi"+p).value,ci=G("ci"+p).value;
   var ad=parseInt(G("ad"+p).value)||1,kv=parseFloat(G("kv"+p).value)||0;
-  var gun=nGun(gi,ci),bs=bantlar(gun,TF[p]);
+  var gun=nGun(gi,ci),bs=bantlar(gun,tarifeDizi(p,cikisYili(p)));
   var ard=0;for(var i=0;i<bs.length;i++)ard+=bs[i].s;ard*=ad;
-  var gu=SG[p]?366*ad:0,yu=SY[p]?240*ad:0;
+  var _eu=ekUcretler(cikisYili(p));
+  var gu=SG[p]?_eu.giris*ad:0,yu=SY[p]?_eu.yukleme*ad:0;
   var kdv=Math.round((ard+gu+yu)*kv/100),tot=ard+gu+yu+kdv;
   var bn=G("bn"+p).value,fi=G("fi"+p).value,vn=G("vn"+p).value;
   var dz=G("dz"+p).value,du=G("du"+p).value,tz=G("tz"+p).value,tu=G("tu"+p).value;
@@ -640,12 +754,12 @@ function printDoc(p){
     +"<td style='"+TD+"text-align:center;color:red;font-weight:bold;font-size:8pt'>ADET</td>"
     +"<td style='"+TDC+"'></td><td style='"+TDC+"'></td><td style='"+TDBR+"'>"+N(ard)+",00 TL</td></tr>"
     +"<tr><td style='"+TDL+"font-size:8pt'>ARAÇ GİRİŞ ÇIKIŞ ÜCRETİ</td>"
-    +"<td style='"+TDBC+"'>366</td>"
+    +"<td style='"+TDBC+"'>"+N(_eu.giris)+"</td>"
     +"<td style='"+TD+"text-align:center;color:red;font-weight:bold'>"+(SG[p]?ad:0)+"</td>"
     +"<td style='"+TDBR+"'>"+N(gu)+"</td><td style='"+TDC+"'>0</td>"
     +"<td style='"+TDBR+"'>"+N(gu)+",00 TL</td></tr>"
     +"<tr><td style='"+TDL+"font-size:8pt'>YÜKLEME-BOŞALTMA</td>"
-    +"<td style='"+TDBC+"'>240</td>"
+    +"<td style='"+TDBC+"'>"+N(_eu.yukleme)+"</td>"
     +"<td style='"+TD+"text-align:center;color:red;font-weight:bold'>"+(SY[p]?ad:0)+"</td>"
     +"<td style='"+TDBR+"'>"+N(yu)+"</td><td style='"+TDC+"'>0</td>"
     +"<td style='"+TDBR+"'>"+N(yu)+",00 TL</td></tr>"
@@ -684,7 +798,9 @@ function gasUret(p){
   var gi=G("gi"+p).value, ci=G("ci"+p).value;
   if(!gi||!ci){ alert("Giriş ve çıkış tarihini girin."); return; }
   var ad=parseInt(G("ad"+p).value)||1, kv=parseFloat(G("kv"+p).value)||0;
-  var tf=TF[p];
+  var _yil=cikisYili(p);
+  var tf=tarifeDizi(p,_yil);
+  var _eu=ekUcretler(_yil);
   var btn=G("gs"+p), eskiYazi=btn?btn.innerHTML:"";
   if(btn){ btn.disabled=true; btn.innerHTML="⏳ &nbsp;Üretiliyor..."; }
 
@@ -714,8 +830,8 @@ function gasUret(p){
     +"&adet="+encodeURIComponent(ad)
     +"&baslik="+encodeURIComponent(BASLIKLAR[p])
     +"&tarife1="+tf[0].d+"&tarife2="+tf[1].d+"&tarife3="+tf[2].d+"&tarife4="+tf[3].d
-    +"&ucretGiris="+UCRET_GIRIS+"&girisAdet="+(SG[p]?ad:0)
-    +"&ucretYukleme="+UCRET_YUKLEME+"&yuklemeAdet="+(SY[p]?ad:0)
+    +"&ucretGiris="+_eu.giris+"&girisAdet="+(SG[p]?ad:0)
+    +"&ucretYukleme="+_eu.yukleme+"&yuklemeAdet="+(SY[p]?ad:0)
     +"&kdv="+kv
     +"&duzenleyen="+encodeURIComponent(G("dz"+p).value||"")
     +"&duzenleyenUnvan="+encodeURIComponent(G("du"+p).value||"")
@@ -762,6 +878,77 @@ function pdfGonder(){
   setTimeout(function(){URL.revokeObjectURL(url);},3000);
 }
 
+// ══ ⚙ TARİFE AYARLARI EKRANI ═══════════════════════════════════════
+function tgDoldur(yil){
+  var t=tarifeYilIcin(yil)||{};
+  var a=t.acik||[145,725,1160,1450], b=t.ucTon||[600,3000,4800,6000];
+  var c=t.kapali||[180,900,1480,1800], y=t.yolcu||[174,174,174,174];
+  for(var i=0;i<4;i++){ G("tgA"+i).value=a[i]; G("tgB"+i).value=b[i]; G("tgC"+i).value=c[i]; }
+  G("tgY0").value=y[0];
+  G("tgGiris").value=(t.girisCikis!=null?t.girisCikis:366);
+  G("tgYukleme").value=(t.yukleme!=null?t.yukleme:240);
+}
+function tgYillariYaz(){
+  var t=TARIFELER||TARIFE_YEDEK;
+  var yillar=Object.keys(t).map(Number).filter(function(y){return !isNaN(y);}).sort(function(a,b){return b-a;});
+  G("tgYilListe").innerHTML=yillar.map(function(y){return '<option value="'+y+'">'+y+'</option>';}).join("");
+}
+function tgNot(metin,tur){
+  var el=G("tgNot"); el.textContent=metin; el.className="tg-not "+(tur||"ok");
+  if(!metin) el.className="tg-not";
+}
+function tgAc(){
+  tgYillariYaz();
+  var buYil=new Date().getFullYear();
+  G("tgYil").value=buYil;
+  tgDoldur(buYil);
+  G("tgPin").value="";
+  tgNot("");
+  G("tgOv").className="tg-ov on";
+  document.body.style.overflow="hidden";
+}
+function tgKapat(){ G("tgOv").className="tg-ov"; document.body.style.overflow=""; }
+function tgKaydet(){
+  var yil=parseInt(G("tgYil").value)||0;
+  if(String(yil).length!==4){ tgNot("Geçerli bir yıl girin.","hata"); return; }
+  var pin=G("tgPin").value||"";
+  if(pin.length<4){ tgNot("PIN en az 4 hane olmalı.","hata"); return; }
+  var say=function(id){ var v=parseFloat(G(id).value); return isNaN(v)?-1:v; };
+  var veri={
+    acik:[say("tgA0"),say("tgA1"),say("tgA2"),say("tgA3")],
+    ucTon:[say("tgB0"),say("tgB1"),say("tgB2"),say("tgB3")],
+    kapali:[say("tgC0"),say("tgC1"),say("tgC2"),say("tgC3")],
+    yolcu:[say("tgY0"),say("tgY0"),say("tgY0"),say("tgY0")],
+    girisCikis:say("tgGiris"), yukleme:say("tgYukleme")
+  };
+  var tumu=veri.acik.concat(veri.ucTon,veri.kapali,veri.yolcu,[veri.girisCikis,veri.yukleme]);
+  if(tumu.some(function(v){return v<0;})){ tgNot("Tüm alanları doldurun.","hata"); return; }
+
+  var btn=G("tgKaydet"), eski=btn.textContent;
+  btn.disabled=true; btn.textContent="Kaydediliyor...";
+  tgNot("");
+
+  var cb="tgKaydetCb_"+Date.now(), sc;
+  var bitir=function(){ btn.disabled=false; btn.textContent=eski; try{delete window[cb];}catch(e){window[cb]=undefined;} if(sc&&sc.parentNode)sc.parentNode.removeChild(sc); };
+  window[cb]=function(res){
+    bitir();
+    if(res&&res.ok){
+      TARIFELER=res.tarifeler;
+      try{ localStorage.setItem("ardiyeTarifeleri",JSON.stringify(TARIFELER)); }catch(e){}
+      tgYillariYaz();
+      tgNot(yil+" tarifesi kaydedildi. Portal da bu fiyatları kullanacak.","ok");
+      G("tgPin").value="";
+      for(var p=0;p<4;p++) hesapla(p);
+    } else {
+      tgNot((res&&res.error)||"Kaydedilemedi.","hata");
+    }
+  };
+  sc=document.createElement("script");
+  sc.src=ARDIYE_GAS+"?action=tarifeKaydet&yil="+yil+"&pin="+encodeURIComponent(pin)+"&veri="+encodeURIComponent(JSON.stringify(veri))+"&callback="+cb;
+  sc.onerror=function(){ bitir(); tgNot("Bağlantı hatası — internet gerekiyor.","hata"); };
+  document.body.appendChild(sc);
+}
+
 window.addEventListener("load",function(){
   G("t0").onclick=function(){sekme(0);};
   G("t1").onclick=function(){sekme(1);};
@@ -786,8 +973,17 @@ window.addEventListener("load",function(){
       G("gs"+p).onclick=function(){gasUret(p);};
     })(_i);
   }
+  G("tgAc").onclick=tgAc;
+  G("tgKapat").onclick=tgKapat;
+  G("tgKaydet").onclick=tgKaydet;
+  G("tgYilListe").onchange=function(){ var y=parseInt(this.value); G("tgYil").value=y; tgDoldur(y); };
+  G("tgOv").onclick=function(e){ if(e.target===this) tgKapat(); };
+
   var bugun=new Date().toISOString().split("T")[0];
   for(var _j=0;_j<4;_j++)G("ci"+_j).value=bugun;
+
+  // Tarifeleri depodan çek; gelince açık sekmeyi tazele
+  tarifeYukle(function(){ for(var _k=0;_k<4;_k++){ try{ hesapla(_k); }catch(e){} } });
 });
 </script>
 </body>
