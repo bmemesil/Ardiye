@@ -813,8 +813,7 @@ function gasUret(p){
   window[cbAdi]=function(res){
     temizle();
     if(res&&res.success){
-      if(res.pdfUrl&&res.pdfUrl.indexOf("HATA:")!==0) window.open(res.pdfUrl,"_blank");
-      else if(res.excelUrl) window.open(res.excelUrl,"_blank");
+      ciktiPaneli(res);
     } else {
       alert("Üretilemedi: "+((res&&res.error)||"bilinmeyen hata"));
     }
@@ -843,6 +842,86 @@ function gasUret(p){
   sc.src=ARDIYE_GAS+q;
   sc.onerror=function(){ temizle(); alert("Bağlantı hatası — internet gerekiyor."); };
   document.body.appendChild(sc);
+}
+
+// ══ ÇIKTI PANELİ ═══════════════════════════════════════════════════
+// Telefonda Drive onizlemesinden yazdirmak bos sayfa veriyor, indirme
+// takiliyordu. Artik PDF, GAS'tan veri (base64) olarak geliyor ve dosya
+// cihazin kendisinde uretiliyor — Drive'a hic gidilmiyor. Ayrica butonlar
+// kullanici dokunusuyla calistigi icin mobil acilir pencere engeline
+// takilmiyor (JSONP cevabi ~15 sn sonra geldigi icin otomatik acma
+// engelleniyordu). base64 gelmezse eski Drive linki yedek olarak devrede.
+function ciktiPaneli(res){
+  var ad=(res.dosyaAdi||"Ardiye_Hesap")+".pdf";
+  var blobUrl="", dosya=null;
+  if(res.pdfBase64){
+    try{
+      var ikili=atob(res.pdfBase64), n=ikili.length, dizi=new Uint8Array(n);
+      for(var i=0;i<n;i++) dizi[i]=ikili.charCodeAt(i);
+      var blob=new Blob([dizi],{type:"application/pdf"});
+      blobUrl=URL.createObjectURL(blob);
+      try{ dosya=new File([blob],ad,{type:"application/pdf"}); }catch(e){}
+    }catch(e){ blobUrl=""; }
+  }
+  var indirLink = blobUrl || res.pdfIndirUrl || "";
+  var gorLink   = blobUrl || ((res.pdfUrl&&res.pdfUrl.indexOf("HATA:")!==0)?res.pdfUrl:"");
+
+  var ov=document.createElement("div");
+  ov.style.cssText="position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.55);"
+    +"z-index:9999;display:flex;align-items:center;justify-content:center;padding:16px";
+  var kt=document.createElement("div");
+  kt.style.cssText="background:#fff;border-radius:14px;max-width:380px;width:100%;"
+    +"padding:18px 16px;box-shadow:0 10px 40px rgba(0,0,0,.3)";
+  ov.appendChild(kt);
+
+  var bas=document.createElement("div");
+  bas.style.cssText="font-size:16px;font-weight:700;margin-bottom:2px;color:#111";
+  bas.textContent="Çıktı hazır";
+  kt.appendChild(bas);
+  var alt=document.createElement("div");
+  alt.style.cssText="font-size:12px;color:#666;margin-bottom:14px;word-break:break-all";
+  alt.textContent=ad;
+  kt.appendChild(alt);
+
+  function kapatPanel(){
+    if(ov.parentNode) ov.parentNode.removeChild(ov);
+    document.body.style.overflow="";
+    // indirme/paylasma surerken iptal olmasin diye gecikmeli birak
+    if(blobUrl) setTimeout(function(){ try{URL.revokeObjectURL(blobUrl);}catch(e){} },60000);
+  }
+  function buton(yazi,renk,islev){
+    var b=document.createElement("button");
+    b.type="button"; b.textContent=yazi;
+    b.style.cssText="display:block;width:100%;margin:8px 0;padding:13px;font-size:15px;"
+      +"font-weight:600;color:#fff;background:"+renk+";border:none;border-radius:9px;cursor:pointer";
+    b.onclick=islev;
+    kt.appendChild(b);
+  }
+
+  if(indirLink){
+    buton("📄  PDF'i İndir","#1a7f37",function(){
+      var a=document.createElement("a");
+      a.href=indirLink; a.download=ad; a.rel="noopener";
+      if(!blobUrl) a.target="_blank";
+      document.body.appendChild(a); a.click(); document.body.removeChild(a);
+    });
+  }
+  if(dosya && navigator.canShare && navigator.canShare({files:[dosya]})){
+    buton("📤  Paylaş / Yazdır","#0b62d0",function(){
+      navigator.share({files:[dosya],title:ad}).catch(function(){});
+    });
+  }
+  if(gorLink){
+    buton("👁  PDF'i Görüntüle","#5a4ad1",function(){ window.open(gorLink,"_blank"); });
+  }
+  if(res.excelUrl){
+    buton("📊  Excel'i Aç","#0f7d6b",function(){ window.open(res.excelUrl,"_blank"); });
+  }
+  buton("Kapat","#8a8f98",kapatPanel);
+
+  ov.onclick=function(e){ if(e.target===ov) kapatPanel(); };
+  document.body.appendChild(ov);
+  document.body.style.overflow="hidden";
 }
 
 // NOT: Yerel yazdirma (yazdir/pdfYazdir/pdfGonder/printDoc) arayuzden
