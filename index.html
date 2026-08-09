@@ -73,7 +73,12 @@ body{background:var(--bg);color:var(--text);font-family:-apple-system,'SF Pro Di
 .fi{width:100%;background:#f8faff;border:1.5px solid var(--border2);border-radius:12px;padding:13px 14px;color:var(--text);font-size:15px;font-family:inherit;-webkit-appearance:none;transition:all .2s;outline:none}
 .fi:focus{border-color:var(--primary-light);box-shadow:0 0 0 4px rgba(99,102,241,.12);background:#fff}
 .fi::placeholder{color:var(--muted)}
-input[type=date]{color-scheme:light}
+input[type=date]{color-scheme:light;min-height:49px;-webkit-appearance:none;appearance:none;position:relative;display:block}
+/* iOS Safari: bos ve dolu tarih kutulari ayni gorunsun (giris/cikis tutarli) */
+input[type=date]::-webkit-date-and-time-value{text-align:left;margin:0;font-size:15px;line-height:21px}
+input[type=date]::-webkit-datetime-edit{color:var(--text);line-height:21px;padding:0}
+input[type=date]:invalid::-webkit-datetime-edit{color:var(--muted)}
+input[type=date]::-webkit-calendar-picker-indicator{opacity:.55}
 .f2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 
 /* GÜN KUTUSU */
