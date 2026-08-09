@@ -252,10 +252,7 @@ input[type=date]::-webkit-calendar-picker-indicator{opacity:.55}
       <div class="gunval" id="gn0">0</div>
     </div>
   </div>
-  <div class="f2">
-    <div class="f"><label>Araç Adedi</label><input class="fi" type="number" id="ad0" value="1" min="1"></div>
-    <div class="f"><label>KDV %</label><input class="fi" type="number" id="kv0" value="0" min="0" max="100"></div>
-  </div>
+  <div class="f"><label>Araç Adedi</label><input class="fi" type="number" id="ad0" value="1" min="1"></div>
   <button class="hbtn" id="hb0">⟳ &nbsp;HESAPLA</button>
 </div>
 
@@ -291,6 +288,16 @@ input[type=date]::-webkit-calendar-picker-indicator{opacity:.55}
     <div class="sr-right">
       <span class="sr-val" id="yu0">0 ₺</span>
       <div class="chk" id="yc0"></div>
+    </div>
+  </div>
+  <div class="sr">
+    <div>
+      <div class="sr-name">KDV</div>
+      <div class="sr-price">%20 (varsa işaretleyin)</div>
+    </div>
+    <div class="sr-right">
+      <span class="sr-val" id="kd0">0 ₺</span>
+      <div class="chk" id="kc0"></div>
     </div>
   </div>
 </div>
@@ -335,10 +342,7 @@ input[type=date]::-webkit-calendar-picker-indicator{opacity:.55}
       <div class="gunval" id="gn1">0</div>
     </div>
   </div>
-  <div class="f2">
-    <div class="f"><label>Araç Adedi</label><input class="fi" type="number" id="ad1" value="1" min="1"></div>
-    <div class="f"><label>KDV %</label><input class="fi" type="number" id="kv1" value="0" min="0" max="100"></div>
-  </div>
+  <div class="f"><label>Araç Adedi</label><input class="fi" type="number" id="ad1" value="1" min="1"></div>
   <button class="hbtn" id="hb1">⟳ &nbsp;HESAPLA</button>
 </div>
 
@@ -374,6 +378,16 @@ input[type=date]::-webkit-calendar-picker-indicator{opacity:.55}
     <div class="sr-right">
       <span class="sr-val" id="yu1">0 ₺</span>
       <div class="chk" id="yc1"></div>
+    </div>
+  </div>
+  <div class="sr">
+    <div>
+      <div class="sr-name">KDV</div>
+      <div class="sr-price">%20 (varsa işaretleyin)</div>
+    </div>
+    <div class="sr-right">
+      <span class="sr-val" id="kd1">0 ₺</span>
+      <div class="chk" id="kc1"></div>
     </div>
   </div>
 </div>
@@ -418,10 +432,7 @@ input[type=date]::-webkit-calendar-picker-indicator{opacity:.55}
       <div class="gunval" id="gn2">0</div>
     </div>
   </div>
-  <div class="f2">
-    <div class="f"><label>Araç Adedi</label><input class="fi" type="number" id="ad2" value="1" min="1"></div>
-    <div class="f"><label>KDV %</label><input class="fi" type="number" id="kv2" value="0" min="0" max="100"></div>
-  </div>
+  <div class="f"><label>Araç Adedi</label><input class="fi" type="number" id="ad2" value="1" min="1"></div>
   <button class="hbtn" id="hb2">⟳ &nbsp;HESAPLA</button>
 </div>
 
@@ -457,6 +468,16 @@ input[type=date]::-webkit-calendar-picker-indicator{opacity:.55}
     <div class="sr-right">
       <span class="sr-val" id="yu2">0 ₺</span>
       <div class="chk" id="yc2"></div>
+    </div>
+  </div>
+  <div class="sr">
+    <div>
+      <div class="sr-name">KDV</div>
+      <div class="sr-price">%20 (varsa işaretleyin)</div>
+    </div>
+    <div class="sr-right">
+      <span class="sr-val" id="kd2">0 ₺</span>
+      <div class="chk" id="kc2"></div>
     </div>
   </div>
 </div>
@@ -501,10 +522,7 @@ input[type=date]::-webkit-calendar-picker-indicator{opacity:.55}
       <div class="gunval" id="gn3">0</div>
     </div>
   </div>
-  <div class="f2">
-    <div class="f"><label>Araç Adedi</label><input class="fi" type="number" id="ad3" value="1" min="1"></div>
-    <div class="f"><label>KDV %</label><input class="fi" type="number" id="kv3" value="0" min="0" max="100"></div>
-  </div>
+  <div class="f"><label>Araç Adedi</label><input class="fi" type="number" id="ad3" value="1" min="1"></div>
   <button class="hbtn" id="hb3">⟳ &nbsp;HESAPLA</button>
 </div>
 
@@ -540,6 +558,16 @@ input[type=date]::-webkit-calendar-picker-indicator{opacity:.55}
     <div class="sr-right">
       <span class="sr-val" id="yu3">0 ₺</span>
       <div class="chk" id="yc3"></div>
+    </div>
+  </div>
+  <div class="sr">
+    <div>
+      <div class="sr-name">KDV</div>
+      <div class="sr-price">%20 (varsa işaretleyin)</div>
+    </div>
+    <div class="sr-right">
+      <span class="sr-val" id="kd3">0 ₺</span>
+      <div class="chk" id="kc3"></div>
     </div>
   </div>
 </div>
@@ -580,7 +608,7 @@ var TF=[
   // Yolcu: tek fiyat — dört bandın da günlük ücreti aynı (174 ₺), toplam = gün × 174
   [{l:"1-20 Gün",d:174,f:1,t:20},{l:"21-50 Gün",d:174,f:21,t:50},{l:"51-80 Gün",d:174,f:51,t:80},{l:"81+ Gün",d:174,f:81,t:99999}]
 ];
-var SG=[0,0,0,0],SY=[0,0,0,0],CUR=0;
+var SG=[0,0,0,0],SY=[0,0,0,0],SK=[0,0,0,0],CUR=0;
 
 // ══ TARİFE DEPOSU İSTEMCİSİ ═════════════════════════════════════════
 // Fiyatların tek kaynağı GAS tarafındaki depo. Açılışta çekilir,
@@ -662,9 +690,9 @@ function N(n){return n.toLocaleString("tr-TR");}
 function sekme(i){CUR=i;for(var j=0;j<4;j++){G("t"+j).className="tab"+(j===i?" on":"");G("pg"+j).className="pg"+(j===i?" on":"");}}
 
 function tikla(p,t){
-  if(t==="g")SG[p]=SG[p]?0:1;else SY[p]=SY[p]?0:1;
-  var on=t==="g"?SG[p]:SY[p];
-  var el=G((t==="g"?"gc":"yc")+p);
+  if(t==="g")SG[p]=SG[p]?0:1;else if(t==="y")SY[p]=SY[p]?0:1;else SK[p]=SK[p]?0:1;
+  var on=t==="g"?SG[p]:(t==="y"?SY[p]:SK[p]);
+  var el=G((t==="g"?"gc":(t==="y"?"yc":"kc"))+p);
   el.className="chk"+(on?" on":"");
   el.textContent=on?"✓":"";
   hesapla(p);
@@ -672,7 +700,7 @@ function tikla(p,t){
 
 function hesapla(p,scroll){
   var gi=G("gi"+p).value,ci=G("ci"+p).value;
-  var ad=parseInt(G("ad"+p).value)||1,kv=parseFloat(G("kv"+p).value)||0;
+  var ad=parseInt(G("ad"+p).value)||1,kv=SK[p]?20:0;
   var gun=nGun(gi,ci);
   G("gn"+p).textContent=gun;
   var bs=bantlar(gun,tarifeDizi(p,cikisYili(p)));
@@ -691,6 +719,7 @@ function hesapla(p,scroll){
   var ara=ard+gu+yu,kdv=Math.round(ara*kv/100),tot=ara+kdv;
   G("gu"+p).textContent=N(gu)+" ₺";
   G("yu"+p).textContent=N(yu)+" ₺";
+  G("kd"+p).textContent=N(kdv)+" ₺";
   var bh="";
   for(var i=0;i<bs.length;i++){var b=bs[i];if(b.on)bh+='<div class="rl"><span>'+b.l+' × '+b.u+' gün</span><span>'+N(b.s*ad)+' ₺</span></div>';}
   if(gu>0)bh+='<div class="rl"><span>Araç Giriş/Çıkış</span><span>'+N(gu)+' ₺</span></div>';
@@ -710,7 +739,7 @@ function hesapla(p,scroll){
 
 function printDoc(p){
   var gi=G("gi"+p).value,ci=G("ci"+p).value;
-  var ad=parseInt(G("ad"+p).value)||1,kv=parseFloat(G("kv"+p).value)||0;
+  var ad=parseInt(G("ad"+p).value)||1,kv=SK[p]?20:0;
   var gun=nGun(gi,ci),bs=bantlar(gun,tarifeDizi(p,cikisYili(p)));
   var ard=0;for(var i=0;i<bs.length;i++)ard+=bs[i].s;ard*=ad;
   var _eu=ekUcretler(cikisYili(p));
@@ -802,7 +831,7 @@ function printDoc(p){
 function gasUret(p){
   var gi=G("gi"+p).value, ci=G("ci"+p).value;
   if(!gi||!ci){ alert("Giriş ve çıkış tarihini girin."); return; }
-  var ad=parseInt(G("ad"+p).value)||1, kv=parseFloat(G("kv"+p).value)||0;
+  var ad=parseInt(G("ad"+p).value)||1, kv=SK[p]?20:0;
   var _yil=cikisYili(p);
   var tf=tarifeDizi(p,_yil);
   var _eu=ekUcretler(_yil);
@@ -1050,10 +1079,9 @@ window.addEventListener("load",function(){
       G("ci"+p).oninput=function(){hesapla(p);};
       G("ad"+p).onchange=function(){hesapla(p);};
       G("ad"+p).oninput=function(){hesapla(p);};
-      G("kv"+p).onchange=function(){hesapla(p);};
-      G("kv"+p).oninput=function(){hesapla(p);};
       G("gc"+p).onclick=function(){tikla(p,"g");};
       G("yc"+p).onclick=function(){tikla(p,"y");};
+      G("kc"+p).onclick=function(){tikla(p,"k");};
       G("gs"+p).onclick=function(){gasUret(p);};
     })(_i);
   }
