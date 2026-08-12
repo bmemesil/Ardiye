@@ -258,7 +258,7 @@ input[type=date]::-webkit-calendar-picker-indicator{opacity:.55}
 
 <div class="sec">Müşteri</div>
 <div class="card">
-  <div class="f"><label>Beyanname / Şase / Takrir No</label><input class="fi" type="text" id="bn0" placeholder="No giriniz..."></div>
+  <div class="f"><label>Beyanname / Şase / Takrir No <span style="color:var(--muted);font-weight:400;font-size:11px">(araç başına IM + Şase)</span></label><div id="bnwrap0"></div></div>
   <div class="f"><label>İthalatçı Firma / Ad Soyad</label><input class="fi" type="text" id="fi0" placeholder="Firma adı..."></div>
   <div class="f"><label>TC / Vergi No</label><input class="fi" type="text" id="vn0" placeholder="Vergi no..."></div>
 </div>
@@ -348,7 +348,7 @@ input[type=date]::-webkit-calendar-picker-indicator{opacity:.55}
 
 <div class="sec">Müşteri</div>
 <div class="card">
-  <div class="f"><label>Beyanname / Şase / Takrir No</label><input class="fi" type="text" id="bn1" placeholder="No giriniz..."></div>
+  <div class="f"><label>Beyanname / Şase / Takrir No <span style="color:var(--muted);font-weight:400;font-size:11px">(araç başına IM + Şase)</span></label><div id="bnwrap1"></div></div>
   <div class="f"><label>İthalatçı Firma / Ad Soyad</label><input class="fi" type="text" id="fi1" placeholder="Firma adı..."></div>
   <div class="f"><label>TC / Vergi No</label><input class="fi" type="text" id="vn1" placeholder="Vergi no..."></div>
 </div>
@@ -438,7 +438,7 @@ input[type=date]::-webkit-calendar-picker-indicator{opacity:.55}
 
 <div class="sec">Müşteri</div>
 <div class="card">
-  <div class="f"><label>Beyanname / Şase / Takrir No</label><input class="fi" type="text" id="bn2" placeholder="No giriniz..."></div>
+  <div class="f"><label>Beyanname / Şase / Takrir No <span style="color:var(--muted);font-weight:400;font-size:11px">(araç başına IM + Şase)</span></label><div id="bnwrap2"></div></div>
   <div class="f"><label>İthalatçı Firma / Ad Soyad</label><input class="fi" type="text" id="fi2" placeholder="Firma adı..."></div>
   <div class="f"><label>TC / Vergi No</label><input class="fi" type="text" id="vn2" placeholder="Vergi no..."></div>
 </div>
@@ -528,7 +528,7 @@ input[type=date]::-webkit-calendar-picker-indicator{opacity:.55}
 
 <div class="sec">Müşteri</div>
 <div class="card">
-  <div class="f"><label>Beyanname / Şase / Takrir No</label><input class="fi" type="text" id="bn3" placeholder="No giriniz..."></div>
+  <div class="f"><label>Beyanname / Şase / Takrir No <span style="color:var(--muted);font-weight:400;font-size:11px">(araç başına IM + Şase)</span></label><div id="bnwrap3"></div></div>
   <div class="f"><label>İthalatçı Firma / Ad Soyad</label><input class="fi" type="text" id="fi3" placeholder="Firma adı..."></div>
   <div class="f"><label>TC / Vergi No</label><input class="fi" type="text" id="vn3" placeholder="Vergi no..."></div>
 </div>
@@ -682,6 +682,40 @@ var UCRET_GIRIS=366, UCRET_YUKLEME=240;
 var ARDIYE_GAS="https://script.google.com/macros/s/AKfycbx8h2iVWt7A2bY80edWL5qvrRVPfuQIdtl5hCMM3bvWwkWcJuhB5Gbtm3I-CYIdQzTjkg/exec";
 
 function G(id){return document.getElementById(id);}
+
+// ══ ARAÇ BAŞINA BEYANNAME/IM + ŞASE SATIRLARI ══════════════════════
+// Araç Adedi kadar satır üretir; her araç için ayrı IM ve Şase kutusu.
+// GAS tarafi (ardiye_gas) beyanname/sasi parametrelerini "|" ile ayrilmis
+// liste bekliyor; her arac icin IM son 4 + ŞASE son 6 yaziyor.
+function bnEsc(s){return String(s==null?"":s).replace(/&/g,"&amp;").replace(/"/g,"&quot;").replace(/</g,"&lt;").replace(/>/g,"&gt;");}
+function bnRowlariYap(p){
+  var wrap=G("bnwrap"+p); if(!wrap) return;
+  var ad=Math.max(1,parseInt(G("ad"+p).value)||1);
+  var eski=[];
+  for(var i=0;;i++){ var im=G("im"+p+"_"+i),sn=G("sn"+p+"_"+i); if(!im&&!sn) break; eski.push({im:im?im.value:"",sn:sn?sn.value:""}); }
+  var h="";
+  for(var i=0;i<ad;i++){
+    var e=eski[i]||{im:"",sn:""};
+    var etk = ad>1 ? "<div style='font-size:11px;color:var(--muted);margin:8px 0 2px'>"+(i+1)+". Araç</div>" : "";
+    h+= etk
+      +"<div class='f2'>"
+      +"<div class='f'><input class='fi' type='text' id='im"+p+"_"+i+"' placeholder='Beyanname / IM No' value=\""+bnEsc(e.im)+"\"></div>"
+      +"<div class='f'><input class='fi' type='text' id='sn"+p+"_"+i+"' placeholder='Şase No' value=\""+bnEsc(e.sn)+"\"></div>"
+      +"</div>";
+  }
+  wrap.innerHTML=h;
+}
+function bnTopla(p){
+  var ad=Math.max(1,parseInt(G("ad"+p).value)||1);
+  var ims=[],sns=[],ozet=[];
+  for(var i=0;i<ad;i++){
+    var im=((G("im"+p+"_"+i)||{}).value||"").trim();
+    var sn=((G("sn"+p+"_"+i)||{}).value||"").trim();
+    ims.push(im); sns.push(sn);
+    if(im||sn){ ozet.push("IM-"+(im?im.slice(-4):"....")+" / ŞASE-"+(sn?sn.slice(-6):"......")); }
+  }
+  return { beyanname: ims.join("|"), sasi: sns.join("|"), ozet: ozet.join("   ") };
+}
 function nGun(a,b){if(!a||!b)return 0;var d=Math.round((new Date(b)-new Date(a))/86400000)+1;return d>0?d:0;}
 function bantlar(n,tf){var r=[],rem=n;for(var i=0;i<tf.length;i++){var t=tf[i],bs=t.t>=99999?rem:(t.t-t.f+1),u=rem>0?Math.min(rem,bs):0;r.push({l:t.l,d:t.d,u:u,s:t.d*u,on:u>0});rem=Math.max(0,rem-u);}return r;}
 function FD(v){if(!v)return "";var p=v.split("-");return p[2]+"."+p[1]+"."+p[0];}
@@ -745,7 +779,7 @@ function printDoc(p){
   var _eu=ekUcretler(cikisYili(p));
   var gu=SG[p]?_eu.giris*ad:0,yu=SY[p]?_eu.yukleme*ad:0;
   var kdv=Math.round((ard+gu+yu)*kv/100),tot=ard+gu+yu+kdv;
-  var bn=G("bn"+p).value,fi=G("fi"+p).value,vn=G("vn"+p).value;
+  var bn=bnTopla(p).ozet,fi=G("fi"+p).value,vn=G("vn"+p).value;
   var dz=G("dz"+p).value,du=G("du"+p).value,tz=G("tz"+p).value,tu=G("tu"+p).value;
   var baslik=BASLIKLAR[p];
   var BANLAR=["1-20 Gün","21-50 Gün","51-80 Gün","81 gün ve sonrası"];
@@ -853,10 +887,11 @@ function gasUret(p){
     }
   };
 
+  var _bn=bnTopla(p);
   var q="?action=create"
     +"&firma="+encodeURIComponent(G("fi"+p).value||"")
-    +"&beyanname="+encodeURIComponent(G("bn"+p).value||"")
-    +"&sasi="+encodeURIComponent(G("bn"+p).value||"")
+    +"&beyanname="+encodeURIComponent(_bn.beyanname)
+    +"&sasi="+encodeURIComponent(_bn.sasi)
     +"&vergiNo="+encodeURIComponent(G("vn"+p).value||"")
     +"&girisTarihi="+encodeURIComponent(FD(gi))
     +"&cikisTarihi="+encodeURIComponent(FD(ci))
@@ -1077,8 +1112,9 @@ window.addEventListener("load",function(){
       G("gi"+p).oninput=function(){hesapla(p);};
       G("ci"+p).onchange=function(){hesapla(p);};
       G("ci"+p).oninput=function(){hesapla(p);};
-      G("ad"+p).onchange=function(){hesapla(p);};
-      G("ad"+p).oninput=function(){hesapla(p);};
+      G("ad"+p).onchange=function(){bnRowlariYap(p);hesapla(p);};
+      G("ad"+p).oninput=function(){bnRowlariYap(p);hesapla(p);};
+      bnRowlariYap(p);
       G("gc"+p).onclick=function(){tikla(p,"g");};
       G("yc"+p).onclick=function(){tikla(p,"y");};
       G("kc"+p).onclick=function(){tikla(p,"k");};
