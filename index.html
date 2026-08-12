@@ -722,8 +722,10 @@ function bnTopla(p){
 }
 
 // ══ FİRMA DEFTERİ — firma adı ↔ vergi no ═══════════════════════════
-// Firma adları vergi numarasıyla localStorage'a kaydedilir; firma adı
-// yazılınca (veya listeden seçilince) vergi no otomatik dolar.
+// Kaynak: Firebase Realtime Database (ardiye-dcbcd), tüm cihazlar arası
+// senkron. localStorage yalnızca çevrimdışı/anında-yükleme aynasıdır;
+// asıl yazma buluta gider (sayfa sonundaki Firebase modül bloğu).
+// Firma adı yazılınca/seçilince vergi no otomatik dolar.
 function firmaDefteriOku(){
   try{ var c=localStorage.getItem("ardiyeFirmalar"); if(c) return JSON.parse(c)||{}; }catch(e){}
   return {};
@@ -741,8 +743,8 @@ function firmaKaydet(ad,vn){
   ad=(ad||"").trim(); vn=(vn||"").trim();
   if(!ad||!vn) return;
   var d=firmaDefteriOku();
-  if(d[ad]===vn) return;
-  d[ad]=vn; firmaDefteriYaz(d); firmaDatalistDoldur();
+  if(d[ad]!==vn){ d[ad]=vn; firmaDefteriYaz(d); firmaDatalistDoldur(); } // yerel ayna: anında görünsün
+  if(window._firmaKaydetFB) window._firmaKaydetFB(ad,vn);                 // buluta yaz (asıl kaynak)
 }
 function firmaVergiDoldur(p){
   var ad=(G("fi"+p).value||"").trim(); if(!ad) return;
@@ -1178,6 +1180,71 @@ window.addEventListener("load",function(){
 
   // Tarifeleri depodan çek; gelince açık sekmeyi tazele
   tarifeYukle(function(){ for(var _k=0;_k<4;_k++){ try{ hesapla(_k); }catch(e){} } });
+});
+</script>
+
+<!-- ══ FİRMA DEFTERİ — FIREBASE SENKRON ════════════════════════════════
+     Firma adı↔vergi no bulutta (Realtime Database) tutulur; tüm cihazlar
+     arası ortak. Anonim giriş yapılır, /firmalar dinlenir ve yerel ayna
+     (localStorage) her değişimde tazelenir. İnternet yoksa son ayna kullanılır.
+     İlk bağlantıda eski localStorage kayıtları buluta taşınır (kaybolmasın). -->
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
+import { getAuth, signInAnonymously } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
+import { getDatabase, ref, set, onValue } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-database.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyBj2dm8IxD8Pf7yKaXRxPdcBElda_55h90",
+  authDomain: "ardiye-dcbcd.firebaseapp.com",
+  databaseURL: "https://ardiye-dcbcd-default-rtdb.europe-west1.firebasedatabase.app",
+  projectId: "ardiye-dcbcd",
+  storageBucket: "ardiye-dcbcd.firebasestorage.app",
+  messagingSenderId: "345703190479",
+  appId: "1:345703190479:web:d43a08e9b0f642cfc50cba"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getDatabase(app);
+
+// RTDB anahtarında '.','#','$','[',']','/' yasak. encodeURIComponent sonrası
+// yalnızca '.' kalır; onu da %2E yaparak güvenli+benzersiz anahtar üretiriz.
+const anahtar = (s) => encodeURIComponent(String(s||"").trim()).replace(/\./g,"%2E");
+
+// Klasik script'ten çağrılır: firmayı buluta yaz.
+window._firmaKaydetFB = function(ad, vn){
+  ad=(ad||"").trim(); vn=(vn||"").trim();
+  if(!ad||!vn) return;
+  try{ set(ref(db,"firmalar/"+anahtar(ad)), { ad:ad, vn:vn }); }catch(e){}
+};
+
+// Firebase snapshot'ı ezmeden ÖNCE mevcut yerel kayıtları yakala (ilk taşıma için).
+let onceki = {};
+try{ onceki = JSON.parse(localStorage.getItem("ardiyeFirmalar")||"{}") || {}; }catch(e){}
+
+let ilk = true;
+function dinle(){
+  onValue(ref(db,"firmalar"), function(snap){
+    const val = snap.val() || {};
+    const map = {};
+    Object.keys(val).forEach(function(k){ const o=val[k]; if(o&&o.ad) map[o.ad]=o.vn||""; });
+
+    if(ilk){
+      ilk=false;
+      // Eski yerel kayıtlardan bulutta olmayanları yukarı taşı.
+      Object.keys(onceki).forEach(function(ad){
+        if(onceki[ad] && map[ad]===undefined){ window._firmaKaydetFB(ad, onceki[ad]); map[ad]=onceki[ad]; }
+      });
+    }
+
+    try{ localStorage.setItem("ardiyeFirmalar", JSON.stringify(map)); }catch(e){}
+    if(window.firmaDatalistDoldur) window.firmaDatalistDoldur();
+  }, function(err){ console.warn("Ardiye firma defteri okunamadı:", err && err.message); });
+}
+
+signInAnonymously(auth).then(dinle).catch(function(e){
+  console.warn("Ardiye Firebase anonim giriş hatası:", e && e.message);
+  // Giriş olmadan kurallar erişimi reddeder; çevrimdışı yerel ayna devrede kalır.
 });
 </script>
 </body>
