@@ -915,23 +915,8 @@ function gasUret(p){
   var btn=G("gs"+p), eskiYazi=btn?btn.innerHTML:"";
   if(btn){ btn.disabled=true; btn.innerHTML="⏳ &nbsp;Üretiliyor..."; }
 
-  var cbAdi="ardiyeCb_"+Date.now();
-  var temizle=function(){
-    if(btn){ btn.disabled=false; btn.innerHTML=eskiYazi; }
-    try{ delete window[cbAdi]; }catch(e){ window[cbAdi]=undefined; }
-    if(sc&&sc.parentNode) sc.parentNode.removeChild(sc);
-  };
-  window[cbAdi]=function(res){
-    temizle();
-    if(res&&res.success){
-      ciktiPaneli(res);
-    } else {
-      alert("Üretilemedi: "+((res&&res.error)||"bilinmeyen hata"));
-    }
-  };
-
   var _bn=bnTopla(p);
-  var q="?action=create"
+  var qBase="?action=create"
     +"&firma="+encodeURIComponent(G("fi"+p).value||"")
     +"&beyanname="+encodeURIComponent(_bn.beyanname)
     +"&sasi="+encodeURIComponent(_bn.sasi)
@@ -948,13 +933,47 @@ function gasUret(p){
     +"&duzenleyen="+encodeURIComponent(G("dz"+p).value||"")
     +"&duzenleyenUnvan="+encodeURIComponent(G("du"+p).value||"")
     +"&tahsilat="+encodeURIComponent(G("tz"+p).value||"")
-    +"&tahsilatUnvan="+encodeURIComponent(G("tu"+p).value||"")
-    +"&callback="+cbAdi;
+    +"&tahsilatUnvan="+encodeURIComponent(G("tu"+p).value||"");
 
-  var sc=document.createElement("script");
-  sc.src=ARDIYE_GAS+q;
-  sc.onerror=function(){ temizle(); alert("Bağlantı hatası — internet gerekiyor."); };
-  document.body.appendChild(sc);
+  // ── JSONP + zaman aşımı + otomatik yeniden deneme ─────────────────
+  // GAS (şablon kopyala→PDF) 10-20 sn sürebilir. Eskiden tek bir ağ/sekme
+  // hıçkırığında anında "Bağlantı hatası" çıkıyor, yanıt sessizce hiç
+  // gelmezse buton sonsuza kadar "Üretiliyor..." kalıyordu. Artık her
+  // deneme 60 sn beklenir; hata veya askıda kalmada sessizce en çok 3 kez
+  // denenir, hepsi başarısız olursa net bir uyarı verilir.
+  var MAX_DENEME=3, ZAMAN_ASIMI=60000;
+  var deneme=0, bitti=false, sc=null, cbAdi=null, zaman=null;
+
+  function _temizleDeneme(){
+    if(zaman){ clearTimeout(zaman); zaman=null; }
+    if(cbAdi){ try{ delete window[cbAdi]; }catch(e){ window[cbAdi]=undefined; } cbAdi=null; }
+    if(sc&&sc.parentNode){ sc.parentNode.removeChild(sc); } sc=null;
+  }
+  function _butonSifirla(){ if(btn){ btn.disabled=false; btn.innerHTML=eskiYazi; } }
+  function _basari(res){
+    if(bitti) return; bitti=true;
+    _temizleDeneme(); _butonSifirla();
+    if(res&&res.success){ ciktiPaneli(res); }
+    else { alert("Üretilemedi: "+((res&&res.error)||"bilinmeyen hata")); }
+  }
+  function _basarisiz(){
+    if(bitti) return;
+    _temizleDeneme();
+    if(deneme<MAX_DENEME){ _dene(); }
+    else { bitti=true; _butonSifirla(); alert("Bağlantı kurulamadı — internet bağlantınızı kontrol edip tekrar deneyin."); }
+  }
+  function _dene(){
+    deneme++;
+    if(btn){ btn.innerHTML = deneme>1 ? ("⏳ &nbsp;Üretiliyor... ("+deneme+". deneme)") : "⏳ &nbsp;Üretiliyor..."; }
+    cbAdi="ardiyeCb_"+Date.now()+"_"+deneme;
+    window[cbAdi]=function(res){ _basari(res); };
+    sc=document.createElement("script");
+    sc.src=ARDIYE_GAS+qBase+"&callback="+cbAdi+"&_="+Date.now();
+    sc.onerror=function(){ _basarisiz(); };
+    zaman=setTimeout(function(){ _basarisiz(); }, ZAMAN_ASIMI);
+    document.body.appendChild(sc);
+  }
+  _dene();
 }
 
 // ══ ÇIKTI PANELİ ═══════════════════════════════════════════════════
